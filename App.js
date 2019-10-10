@@ -1,19 +1,36 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Slick from 'react-native-slick';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Slick style={styles.wrapper} >
+      <View style={styles.cameraView}>
+        <Text style={styles.text}>Camera</Text>
+      </View>
+      <View style={styles.savedImagesView}>
+        <Text style={styles.text}>Images</Text>
+      </View>
+    </Slick>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  wrapper: {
   },
-});
+  cameraView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  savedImagesView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: 'black',
+    fontSize: 30,
+    fontWeight: 'bold',
+  }
+})

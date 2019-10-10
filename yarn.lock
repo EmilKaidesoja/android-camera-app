@@ -4105,7 +4105,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -4198,6 +4198,13 @@ react-native-branch@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-3.0.1.tgz#5b07b61cbd290168cd3c3662e017ebe0f356d2ca"
   integrity sha512-vbcYxPZlpF5f39GAEUF8kuGQqCNeD3E6zEdvtOq8oCGZunHXlWlKgAS6dgBKCvsHvXgHuMtpvs39VgOp8DaKig==
+
+react-native-slick@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-slick/-/react-native-slick-1.0.2.tgz#4cec1fd5a2e31ad013c5cc7ba9d1511b8eb6214c"
+  integrity sha512-pEnCX4KSYn9dLqyMBOuuO9ofcMStYHLrpNEZAvizL2rG8CFjCX5s31PbHTu9ndZosdH3xX7V+slvIMNNz1RYEw==
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-view-shot@2.6.0:
   version "2.6.0"
