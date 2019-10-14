@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import * as Permissions from "expo-permissions";
-import Cam from "./Camera";
+import Cam from "./camera";
 
 async function checkMultiPermissions() {
   const { status, expires, permissions } = await Permissions.getAsync(Permissions.CAMERA);
