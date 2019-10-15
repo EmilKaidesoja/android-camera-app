@@ -5,23 +5,10 @@ import { Camera } from "expo-camera";
 
 class Cam extends Component {
     state = {
-        hasCameraPermission: null,
         type: Camera.Constants.Type.back,
     };
 
-    async componentDidMount() {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        console.log(status);
-        this.setState({ hasCameraPermission: status === 'granted' });
-    }
-
     render() {
-        const { hasCameraPermission } = this.state;
-        if (hasCameraPermission === null) {
-            return <Text>Permission Null</Text>;
-        } else if (hasCameraPermission === false) {
-            return <Text>No access to camera</Text>;
-        } else {
             return (
                     <Camera style={{ flex: 1 }} type={this.state.type}>
                         <View
@@ -50,5 +37,4 @@ class Cam extends Component {
                     </Camera>
             )
         }
-    }
-} export default Cam;
+    } export default Cam;

@@ -1,19 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Slick from 'react-native-slick';
-import CameraContainer from "./src/screens/CameraContainer"
+import CameraContainer from "./src/screens/CameraContainer";
+import AuxWrapper from "./src/Utils/AuxWrapper";
 
 export default function App() {
   return (
-    <CameraContainer />
-    /*<Slick style={styles.wrapper} >
-      <View style={styles.cameraView}>
+    <Slick style={styles.wrapper} loop={false}>
+      <AuxWrapper style={styles.cameraView}>
         <CameraContainer />
-      </View>
-      <View style={styles.savedImagesView}>
+      </AuxWrapper>
+      <AuxWrapper style={styles.savedImagesView}>
         <Text style={styles.text}>Images</Text>
-      </View>
-    </Slick>*/
+      </AuxWrapper>
+    </Slick>
   );
 }
 
