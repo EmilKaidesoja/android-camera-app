@@ -1,38 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Slick from 'react-native-slick';
-import CameraContainer from "./src/screens/CameraContainer";
-import AuxWrapper from "./src/Utils/AuxWrapper";
+import { Provider } from "react-redux";
+import AppContainer from "./src/containers/AppContainer";
+import configureStore from "./store/configureStore";
+
+export const store = configureStore();
 
 export default function App() {
   return (
-    <Slick style={styles.wrapper} loop={false}>
-      <AuxWrapper style={styles.cameraView}>
-        <CameraContainer />
-      </AuxWrapper>
-      <AuxWrapper style={styles.savedImagesView}>
-        <Text style={styles.text}>Images</Text>
-      </AuxWrapper>
-    </Slick>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-  },
-  cameraView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  savedImagesView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'black',
-    fontSize: 30,
-    fontWeight: 'bold',
-  }
-})
