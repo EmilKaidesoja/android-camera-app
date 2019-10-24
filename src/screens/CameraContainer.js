@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { Text, View, Button } from "react-native";
 import * as Permissions from "expo-permissions";
 import Cam from "./camera";
 

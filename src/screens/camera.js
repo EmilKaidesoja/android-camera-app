@@ -1,40 +1,51 @@
 import React, { Component } from "react";
-import { View, Button, Text, TouchableOpacity } from "react-native";
+import { View, Button, Text, TouchableOpacity, Image } from "react-native";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
+import styles from "../css/camera"
+import AuxWrapper from "../Utils/AuxWrapper";
 
 class Cam extends Component {
     state = {
         type: Camera.Constants.Type.back,
+        pictureTaken: false,
+        picSource: "",
     };
 
+    takePicture = async () => {
+        console.log("TAKE PICTURE");
+        if (this.camera) {
+            let picture = await this.camera.takePictureAsync();
+            this.setState({ pictureTaken: true, picSource: picture.uri })
+        }
+    }
+    discardPicture = () => {
+        this.setState({ pictureTaken: false, picSource: "" })
+    }
     render() {
+        if (this.state.pictureTaken) {
             return (
-                    <Camera style={{ flex: 1 }} type={this.state.type}>
-                        <View
-                            style={{
-                                flex: 1,
-                                backgroundColor: 'transparent',
-                                flexDirection: 'row',
-                            }}>
-                            <TouchableOpacity
-                                style={{
-                                    flex: 0.1,
-                                    alignSelf: 'flex-end',
-                                    alignItems: 'center',
-                                }}
-                                onPress={() => {
-                                    this.setState({
-                                        type:
-                                            this.state.type === Camera.Constants.Type.back
-                                                ? Camera.Constants.Type.front
-                                                : Camera.Constants.Type.back,
-                                    });
-                                }}>
-                                <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </Camera>
+                <View className={styles.takenImageContainer} >
+                    <Image className={styles.takenImage}
+                        source={{ uri: this.state.picSource }} />
+                    <Button
+                        className={styles.discardButton}
+                        onPress={() => this.discardPicture()}
+                        title="Discard Photo" />
+                </View>
             )
         }
-    } export default Cam;
+        return (
+            <Camera
+                className={styles.cameraContainer}
+                type={this.state.type}
+                ref={ref => {
+                    this.camera = ref;
+                }}>
+                <TouchableOpacity
+                    onPress={() => this.takePicture()}
+                    className={styles.takePictureButton} />
+            </Camera>
+        )
+    }
+} export default Cam;

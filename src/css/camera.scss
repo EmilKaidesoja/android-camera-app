@@ -1,0 +1,29 @@
+.cameraContainer {
+  height: 90%;
+  width: 100%;
+}
+.takePictureButton {
+  position: absolute;
+  height: 70px;
+  width: 70px;
+  border-radius: 35px;
+  bottom: 10px;
+  left: 140px;
+  border: 2px solid grey;
+  background-color: white;
+}
+
+.takenImageContainer {
+  height: 90%;
+  width: 100%;
+}
+.takenImage {
+  height: 100%;
+  width: 100%;
+}
+.discardButton {
+  border-radius: 2px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}

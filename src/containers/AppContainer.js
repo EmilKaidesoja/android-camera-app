@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slick from 'react-native-slick';
-import {StyleSheet, Text} from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 import CameraContainer from "../screens/CameraContainer";
 import AuxWrapper from "../Utils/AuxWrapper";
+import History from "../screens/History";
 
 class AppContainer extends Component {
     render() {
@@ -14,7 +15,7 @@ class AppContainer extends Component {
                     <CameraContainer />
                 </AuxWrapper>
                 <AuxWrapper style={styles.savedImagesView}>
-                    <Text style={styles.text}>Images</Text>
+                    <History />
                 </AuxWrapper>
             </Slick>
         )
@@ -36,19 +37,18 @@ const styles = StyleSheet.create({
     wrapper: {
     },
     cameraView: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     savedImagesView: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     text: {
-      color: 'black',
-      fontSize: 30,
-      fontWeight: 'bold',
+        color: 'black',
+        fontSize: 30,
+        fontWeight: 'bold',
     }
-  })
-  
+})
