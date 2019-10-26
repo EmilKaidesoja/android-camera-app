@@ -5,7 +5,7 @@ import { StyleSheet, Text } from "react-native";
 
 import CameraContainer from "../screens/CameraContainer";
 import AuxWrapper from "../Utils/AuxWrapper";
-import History from "../screens/History";
+import History from "../screens/history";
 
 class AppContainer extends Component {
     render() {
@@ -35,6 +35,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 const styles = StyleSheet.create({
     wrapper: {
+        color: "#fff"
     },
     cameraView: {
         flex: 1,

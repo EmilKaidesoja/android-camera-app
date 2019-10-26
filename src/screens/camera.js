@@ -19,8 +19,11 @@ class Cam extends Component {
             this.setState({ pictureTaken: true, picSource: picture.uri })
         }
     }
-    discardPicture = () => {
+    discardPhoto = () => {
         this.setState({ pictureTaken: false, picSource: "" })
+    }
+    analyzePhoto = () => {
+        this.setState({ pictureTaken: true})
     }
     render() {
         if (this.state.pictureTaken) {
@@ -30,8 +33,12 @@ class Cam extends Component {
                         source={{ uri: this.state.picSource }} />
                     <Button
                         className={styles.discardButton}
-                        onPress={() => this.discardPicture()}
-                        title="Discard Photo" />
+                        onPress={() => this.discardPhoto()}
+                        title="Take new Photo" />
+                    <Button
+                        className={styles.allowButton}
+                        onPress={() => this.analyzePhoto()}
+                        title="Analyze photo" />
                 </View>
             )
         }
