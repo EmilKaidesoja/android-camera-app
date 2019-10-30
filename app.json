@@ -18,7 +18,10 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "CAMERA"
+        "CAMERA",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "CAMERA_ROLL"
       ],
       "config": {
         "branch": {

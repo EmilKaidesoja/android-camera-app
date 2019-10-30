@@ -9,6 +9,7 @@ async function askCameraPermission() {
     alert('This app needs permission to use camera');
   }
 }
+
 class Camera extends Component {
   state = {
     openCamera: false
