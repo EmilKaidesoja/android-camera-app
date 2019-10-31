@@ -5,7 +5,7 @@ import { StyleSheet, Text } from "react-native";
 
 import CameraContainer from "../screens/CameraContainer";
 import AuxWrapper from "../Utils/AuxWrapper";
-import History from "../screens/history";
+import History from "../screens/History";
 
 class AppContainer extends Component {
     render() {

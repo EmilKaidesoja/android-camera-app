@@ -11,61 +11,62 @@ class Cam extends Component {
         type: Camera.Constants.Type.back,
         pictureTaken: false,
         picSource: "",
+        pic: "",
+        prediction: ""
     };
 
     takePicture = async () => {
         console.log("image captured");
         if (this.camera) {
             let picture = await this.camera.takePictureAsync();
-            this.setState({ pictureTaken: true, picSource: picture.uri })
+            this.setState({ pictureTaken: true, picSource: picture.uri, pic: picture })
         }
     }
     discardPhoto = () => {
         this.setState({ pictureTaken: false, picSource: "" })
     }
 
-
-
     analyzePhoto = () => {
+        console.log("--- ANALYZE CALLED ---")
+        let localUri = this.state.pic.uri;
+        let filename = localUri.split('/').pop();
 
-        const imageData = new FormData();
-        imageData.append("image", this.state.picSource)
-        axios.post(" http://5c6c8751.ngrok.io")
-            .then(res => {
-                console.log(res.imageData)
-                console.log("image uploaded")
-            })
-            .catch((error) => {
-                console.log("POST")
-                console.log(error.code)
-               // console.log(error.message)
-               // console.log(error.stack)
-            })
+        let match = /\.(\w+)$/.exec(filename);
+        let type = match ? `image/${match[1]}` : `image`;
 
+        let formData = new FormData();
+        formData.append('photo', { uri: localUri, name: filename, type });
+        axios({
+            url: "https://d2695ec3.ngrok.io/predict",
+            headers: {
+                "Content-Type": 'multipart/form-data'
+            },
+            method: "POST",
+            data: formData,
+        }).then(response => {
+            console.log("--- RESPONSE GOTTEN ---", response.data)
+            if (response.status == 200) {
 
-//      const imageData = new FormData();
-//        imageData.append("picture", {uri: imageData.uri, className: "picture", type: "image/jpg"});
-//
-//       fetch("http://5c6c8751.ngrok.io",{
-//           method: "POST",
-//                headers: {
-//                    'Accept': 'application/json',
-//                    'Content-Type': 'application/json',
-//                },
-//           body: imageData,
-//           }).then((res) => {
-//
-//                console.log("body")
-//                .catch((error) => {
-//                    console.log(error.message)
-//                })
-//                
-//      });
-      
-
-// this.setState({ pictureTaken: true, picSource: "picture.uri" })
+                this.setState({ prediction: response.data, pictureTaken: false })
+            }
+        }).catch(error => {
+            console.log(error)
+        })
     }
     render() {
+        if (this.state.prediction != "") {
+            return (
+                <View>
+                    <Text style={{ position: "absolute", top: 200, left: 100, fontSize: 30 }}>
+                        {this.state.prediction}</Text>
+                        <View style={{height: 400}} />
+                    <Button
+                        title="Reset"
+                        style={{ marginTop: "80%", marginLeft: "30%", backgroundColor: "grey" }}
+                        onPress={() => this.setState({ prediction: "" })} />
+                </View>
+            )
+        }
         if (this.state.pictureTaken) {
             return (
                 <View className={styles.takenImageContainer} >
