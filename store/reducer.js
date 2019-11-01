@@ -1,7 +1,10 @@
 
 export default function reducer(
     state = {
-
+      hasCameraPermission: false,
+      pictureSent: false,
+      takingPicture: false,
+      prediction: "",
     },
     action
   ) {

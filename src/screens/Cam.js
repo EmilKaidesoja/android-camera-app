@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { View, Button, Text, TouchableOpacity, Image } from "react-native";
-import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import styles from "../css/camera"
 import AuxWrapper from "../Utils/AuxWrapper";
-import axios from "axios";
+import { connect } from "react-redux";
+import { sendPicture } from "../../store/actions";
 
 class Cam extends Component {
     state = {
@@ -16,7 +16,7 @@ class Cam extends Component {
     };
 
     takePicture = async () => {
-        console.log("image captured");
+        //console.log("image captured");
         if (this.camera) {
             let picture = await this.camera.takePictureAsync();
             this.setState({ pictureTaken: true, picSource: picture.uri, pic: picture })
@@ -28,30 +28,30 @@ class Cam extends Component {
 
     analyzePhoto = () => {
         console.log("--- ANALYZE CALLED ---")
-        let localUri = this.state.pic.uri;
-        let filename = localUri.split('/').pop();
-
-        let match = /\.(\w+)$/.exec(filename);
-        let type = match ? `image/${match[1]}` : `image`;
-
-        let formData = new FormData();
-        formData.append('photo', { uri: localUri, name: filename, type });
-        axios({
-            url: "https://d2695ec3.ngrok.io/predict",
-            headers: {
-                "Content-Type": 'multipart/form-data'
-            },
-            method: "POST",
-            data: formData,
-        }).then(response => {
-            console.log("--- RESPONSE GOTTEN ---", response.data)
-            if (response.status == 200) {
-
-                this.setState({ prediction: response.data, pictureTaken: false })
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+        this.props.sendPic(this.state.pic.uri)
+        /*  let filename = localUri.split('/').pop();
+  
+          let match = /\.(\w+)$/.exec(filename);
+          let type = match ? `image/${match[1]}` : `image`;
+  
+          let formData = new FormData();
+          formData.append('photo', { uri: localUri, name: filename, type });
+          axios({
+              url: "https://d2695ec3.ngrok.io/predict",
+              headers: {
+                  "Content-Type": 'multipart/form-data'
+              },
+              method: "POST",
+              data: formData,
+          }).then(response => {
+              console.log("--- RESPONSE GOTTEN ---", response.data)
+              if (response.status == 200) {
+  
+                  this.setState({ prediction: response.data, pictureTaken: false })
+              }
+          }).catch(error => {
+              console.log(error)
+          })*/
     }
     render() {
         if (this.state.prediction != "") {
@@ -59,7 +59,7 @@ class Cam extends Component {
                 <View>
                     <Text style={{ position: "absolute", top: 200, left: 100, fontSize: 30 }}>
                         {this.state.prediction}</Text>
-                        <View style={{height: 400}} />
+                    <View style={{ height: 400 }} />
                     <Button
                         title="Reset"
                         style={{ marginTop: "80%", marginLeft: "30%", backgroundColor: "grey" }}
@@ -96,4 +96,21 @@ class Cam extends Component {
             </Camera>
         )
     }
-} export default Cam;
+}
+mapStateToProps = state => {
+    return {
+
+    }
+}
+
+mapDispatchToProps = dispatch => {
+    return {
+        sendPic(localUri) {
+            dispatch(sendPicture(localUri))
+        }
+
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cam);

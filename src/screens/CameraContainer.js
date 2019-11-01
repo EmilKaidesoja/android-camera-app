@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, Button } from "react-native";
 import * as Permissions from "expo-permissions";
-import Cam from "./camera";
+import Cam from "./Cam";
 
 async function askCameraPermission() {
   const { status, expires, permissions } = await Permissions.askAsync(Permissions.CAMERA);
