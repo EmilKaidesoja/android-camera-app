@@ -1,14 +1,20 @@
 import { axiosCallApi } from "../middleware/axiosApi";
 import * as Permissions from "expo-permissions";
+
+
 export const PICTURE_SENT = "PICTURE_SENT";
 export const CAMERA_PERMISSION_GRANTED = "";
-export const CAMERA_ROLL_PERMISSION_GRANTED = "CAMERA_ROLL_PERMISSION_GRANTED"
+export const CAMERA_ROLL_PERMISSION_GRANTED = "CAMERA_ROLL_PERMISSION_GRANTED";
+export const TAKING_PICTURE = "TAKING_PICTURE";
+export const PREDICTION_RECEIVED = "PREDICTION_RECEIVED"
+export const RESET_PREDICTION = "RESET_PREDICTION"
 
 const URL = "https://e661a8c7.ngrok.io"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
 
 export function sendPicture(localUri) {
     return (dispatch, getState) => {
+        dispatch({type: PICTURE_SENT})
         let filename = localUri.split('/').pop();
 
         let match = /\.(\w+)$/.exec(filename);
@@ -19,8 +25,7 @@ export function sendPicture(localUri) {
         endpoint = "/predict"
 
         axiosCallApi(URL, endpoint, FORM_HEADERS, "POST", formData).then(response => {
-            // Do stuff with response
-            console.log(response, "RESPONSE")
+            dispatch({type: PREDICTION_RECEIVED, prediction: response})
         })
     }
 }
