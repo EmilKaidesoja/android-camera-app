@@ -16,7 +16,6 @@ class Cam extends Component {
     };
 
     takePicture = async () => {
-        //console.log("image captured");
         if (this.camera) {
             let picture = await this.camera.takePictureAsync();
             this.setState({ pictureTaken: true, picSource: picture.uri, pic: picture })
@@ -76,13 +75,13 @@ class Cam extends Component {
         )
     }
 }
-mapStateToProps = state => {
+const mapStateToProps = state => {
     return {
 
     }
 }
 
-mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         sendPic(localUri) {
             dispatch(sendPicture(localUri))

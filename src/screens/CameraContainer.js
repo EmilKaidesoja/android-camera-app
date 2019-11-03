@@ -1,20 +1,8 @@
 import React, { Component } from "react";
 import { Text, View, Button } from "react-native";
-import * as Permissions from "expo-permissions";
+import { connect } from "react-redux";
 import Cam from "./Cam";
-
-async function askCameraPermission() {
-  const { status, expires, permissions } = await Permissions.askAsync(Permissions.CAMERA);
-  if (status !== 'granted') {
-    alert('This app needs permission to use camera');
-  }
-}
-async function askCameraRollPermission() {
-  const { status, expires, permissions } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-  if (status !== 'granted') {
-    alert('This app needs permission to use gallery');
-  }
-}
+import { askCameraPermission, askCameraRollPermission } from "../../store/actions";
 
 class Camera extends Component {
   state = {
@@ -22,11 +10,28 @@ class Camera extends Component {
   }
 
   componentDidMount() {
-    askCameraPermission();
-    askCameraRollPermission()
-    setTimeout(() => {
-      this.setState({ openCamera: true })
-    }, 0);
+    let { hasCameraPermission,
+      hasCameraRollPermission,
+      askForCamPermission,
+      askForCamRollPermission } = this.props
+
+    if (!hasCameraPermission) {
+      askForCamPermission()
+    }
+    if (!hasCameraRollPermission) {
+      askForCamRollPermission()
+    }
+
+  }
+  componentDidUpdate() {
+    let { hasCameraPermission,
+      hasCameraRollPermission } = this.props
+
+    if (hasCameraRollPermission && hasCameraPermission) {
+      setTimeout(() => {
+        this.setState({ openCamera: true })
+      }, 0);
+    }
   }
   render() {
     if (this.state.openCamera) {
@@ -34,13 +39,37 @@ class Camera extends Component {
     } else {
       return (
         <View style={{ marginTop: 200 }}>
-          <Text>Camera</Text>
+         {/* <Text>Camera</Text>
           <Button
             onPress={() => this.setState({ openCamera: true })}
-            title="Press me" />
+          title="Press me" />*/}
         </View>)
     }
   }
 }
+const mapStateToProps = state => {
+  let {
+    hasCameraRollPermission,
+    hasCameraPermission } = state
+  return {
+    hasCameraRollPermission,
+    hasCameraPermission
+  }
+}
 
-export default Camera;
+const mapDispatchToProps = dispatch => {
+  return {
+    sendPic(localUri) {
+      dispatch(sendPicture(localUri))
+    },
+    askForCamPermission() {
+      dispatch(askCameraPermission())
+    },
+    askForCamRollPermission() {
+      dispatch(askCameraRollPermission())
+    }
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Camera);
