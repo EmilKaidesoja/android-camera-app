@@ -2,7 +2,7 @@ import { axiosCallApi } from "../middleware/axiosApi";
 
 export const PICTURE_SENT = "PICTURE_SENT";
 
-const URL = "https://a3495501.ngrok.io"
+const URL = "https://e661a8c7.ngrok.io"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
 
 export function sendPicture(localUri) {

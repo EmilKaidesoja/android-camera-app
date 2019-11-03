@@ -9,6 +9,12 @@ async function askCameraPermission() {
     alert('This app needs permission to use camera');
   }
 }
+async function askCameraRollPermission() {
+  const { status, expires, permissions } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+  if (status !== 'granted') {
+    alert('This app needs permission to use gallery');
+  }
+}
 
 class Camera extends Component {
   state = {
@@ -17,6 +23,7 @@ class Camera extends Component {
 
   componentDidMount() {
     askCameraPermission();
+    askCameraRollPermission()
     setTimeout(() => {
       this.setState({ openCamera: true })
     }, 0);

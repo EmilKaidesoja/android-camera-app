@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Button, Text, TouchableOpacity, Image } from "react-native";
+import { View, Button, Text, TouchableOpacity, Image, CameraRoll } from "react-native";
 import { Camera } from "expo-camera";
 import styles from "../css/camera"
 import AuxWrapper from "../Utils/AuxWrapper";
@@ -28,30 +28,9 @@ class Cam extends Component {
 
     analyzePhoto = () => {
         console.log("--- ANALYZE CALLED ---")
+        CameraRoll.saveToCameraRoll(this.state.pic.uri, "photo")
         this.props.sendPic(this.state.pic.uri)
-        /*  let filename = localUri.split('/').pop();
-  
-          let match = /\.(\w+)$/.exec(filename);
-          let type = match ? `image/${match[1]}` : `image`;
-  
-          let formData = new FormData();
-          formData.append('photo', { uri: localUri, name: filename, type });
-          axios({
-              url: "https://d2695ec3.ngrok.io/predict",
-              headers: {
-                  "Content-Type": 'multipart/form-data'
-              },
-              method: "POST",
-              data: formData,
-          }).then(response => {
-              console.log("--- RESPONSE GOTTEN ---", response.data)
-              if (response.status == 200) {
-  
-                  this.setState({ prediction: response.data, pictureTaken: false })
-              }
-          }).catch(error => {
-              console.log(error)
-          })*/
+       
     }
     render() {
         if (this.state.prediction != "") {
