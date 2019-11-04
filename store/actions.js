@@ -8,27 +8,25 @@ export const TAKING_PICTURE = "TAKING_PICTURE";
 export const PREDICTION_RECEIVED = "PREDICTION_RECEIVED";
 export const RESET_PREDICTION = "RESET_PREDICTION";
 
-const URL = "https://85fc6bf6.ngrok.io";
-const FORM_HEADERS = { "Content-Type": "multipart/form-data" };
+const URL = "https://c6fdb6dd.ngrok.io"
+const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
 
 export function sendPicture(localUri) {
-  return (dispatch, getState) => {
-    dispatch({ type: PICTURE_SENT });
-    let filename = localUri.split("/").pop();
+    return (dispatch, getState) => {
+        dispatch({ type: PICTURE_SENT })
+        let filename = localUri.split('/').pop();
 
-    let match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
+        let match = /\.(\w+)$/.exec(filename);
+        let type = match ? `image/${match[1]}` : `image`;
 
-    let formData = new FormData();
-    formData.append("photo", { uri: localUri, name: filename, type });
-    endpoint = "/predict";
+        let formData = new FormData();
+        formData.append('photo', { uri: localUri, name: filename, type });
+        endpoint = "/predict"
 
-    axiosCallApi(URL, endpoint, FORM_HEADERS, "POST", formData).then(
-      response => {
-        dispatch({ type: PREDICTION_RECEIVED, prediction: response });
-      }
-    );
-  };
+        axiosCallApi(URL, endpoint, FORM_HEADERS, "POST", formData).then(response => {
+            dispatch({ type: PREDICTION_RECEIVED, predictions: response })
+        })
+    }
 }
 
 export function askCameraPermission() {
