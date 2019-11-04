@@ -1,14 +1,13 @@
 .cameraContainer {
-  height: 90%;
+  height: 80%;
   width: 100%;
 }
 .takePictureButton {
-  position: absolute;
+  margin: auto;
   height: 70px;
   width: 70px;
   border-radius: 35px;
-  bottom: 10px;
-  left: 140px;
+  margin-bottom: 13%;
   border: 3px solid rgb(255, 255, 255);
   background-color: transparent;
 }
@@ -16,17 +15,43 @@
 .takenImageContainer {
   height: 90%;
   width: 100%;
+  position: relative;
 }
 .takenImage {
   height: 100%;
   width: 100%;
 }
+.takenImageOption {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  //flex: 1;
+  // flex-direction: row;
+}
 .discardButton {
+  padding: 20px 20px;
+  //margin: 0% 40% 20% 0%;
   border-radius: 2px;
+  background-color: rgb(15, 128, 71);
+  color: black;
+  height: auto;
+  width: 100px;
+  margin: auto;
+  top: 50%;
+  right: 50px;
   position: absolute;
-  top: 50px;
+}
+.analyzeButton {
+  position: absolute;
+  padding: 20px;
+  border-radius: 2px;
+  background-color: deeppink;
+  color: rgb(243, 243, 243);
+  height: auto;
+  width: 100px;
   left: 50px;
 }
-.analyzeButton{
-  padding: 20px;
+.toolbar {
+  height: 20%;
+  background-color: #2a2626;
 }
