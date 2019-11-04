@@ -4,6 +4,7 @@ import { Camera } from "expo-camera";
 import styles from "../css/styles"
 import AuxWrapper from "../Utils/AuxWrapper";
 import { connect } from "react-redux";
+import Picture from "./Picture";
 
 import {
     sendPicture,
@@ -57,20 +58,10 @@ class Cam extends Component {
             )
         }
         if (this.state.pictureTaken) {
-            return (
-                <View className={styles.takenImageContainer} >
-                    <Image className={styles.takenImage}
-                        source={{ uri: this.state.picSource }} />
-                    <Button
-                        className={styles.discardButton}
-                        onPress={() => this.discardPhoto()}
-                        title="Take new Photo" />
-                    <Button
-                        className={styles.analyzeButton}
-                        onPress={() => this.analyzePhoto()}
-                        title="Analyze photo" />
-                </View>
-            )
+            return <Picture 
+            picSource = {this.state.picSource} 
+            discard = {() => this.discardPhoto()}
+            />
         }
         return (
             <Camera
@@ -91,7 +82,7 @@ const mapStateToProps = state => {
     let { prediction, pictureSent } = state
     return {
         prediction,
-        pictureSent
+       // pictureSent
     }
 }
 

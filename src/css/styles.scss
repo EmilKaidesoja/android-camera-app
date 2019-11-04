@@ -9,3 +9,12 @@
   font-size: 25px;
   text-align: center;
 }
+.img {
+  width: 120px;
+  height: 200px;
+}
+.historyContainer {
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

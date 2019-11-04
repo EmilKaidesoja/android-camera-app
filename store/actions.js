@@ -9,7 +9,7 @@ export const TAKING_PICTURE = "TAKING_PICTURE";
 export const PREDICTION_RECEIVED = "PREDICTION_RECEIVED"
 export const RESET_PREDICTION = "RESET_PREDICTION"
 
-const URL = "https://e661a8c7.ngrok.io"
+const URL = "https://85fc6bf6.ngrok.io"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
 
 export function sendPicture(localUri) {
