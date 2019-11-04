@@ -42,6 +42,7 @@ class Cam extends Component {
     };
 
     analyzePhoto = () => {
+        console.log("image sent to the backend")
         CameraRoll.saveToCameraRoll(this.state.pic.uri, "photo");
         this.props.sendPic(this.state.pic.uri);
     };
@@ -79,6 +80,7 @@ class Cam extends Component {
                 <Picture
                     picSource={this.state.picSource}
                     discard={() => this.discardPhoto()}
+                    analyze={() => this.analyzePhoto()}
                 />
             );
         }

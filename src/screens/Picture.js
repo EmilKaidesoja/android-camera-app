@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import styles from "../css/camera";
 
 class Picture extends Component {
+
   render() {
     return (
       <View className={styles.takenImageContainer}>
@@ -18,9 +19,10 @@ class Picture extends Component {
           >
             <Text>Take new photo</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             className={styles.analyzeButton}
-            onPress={() => this.analyzePhoto()}
+            onPress={this.props.analyze}
           >
             <Text>Analyze photo</Text>
           </TouchableOpacity>
