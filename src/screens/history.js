@@ -6,27 +6,13 @@ import Img from "./Img";
 import AuxWrapper from "../Utils/AuxWrapper";
 import Picture from "./Picture";
 
+const _ = require("underscore")
+
 class History extends Component {
   state = {
-    photos: [],
     openPhoto: false,
     openPhotoUri: "",
   }
-  componentDidMount() {
-    setTimeout(() => {
-      if (this.props.hasCameraRollPermission) {
-        let photoConfig = {
-          first: 20,
-          groupName: "DCIM",
-          assetType: 'Photos',
-        }
-        CameraRoll.getPhotos(photoConfig).then(photos => {
-          this.setState({ photos: photos.edges })
-        })
-      }
-    }, 1000);
-  }
-
   openImage = (uri) => {
     this.setState({ openPhoto: true, openPhotoUri: uri })
   }
@@ -41,34 +27,33 @@ class History extends Component {
     }
 
     let images = null
-    if (this.state.photos.length > 0) {
-      images = this.state.photos.map((photo => {
+    if (this.props.photos.length > 0) {
+      images = _.map(this.props.photos, photo => {
         return (
           <TouchableOpacity
-            key={photo.node.timestamp}
+            key={_.uniqueId()}
             onPress={() => this.openImage(photo.node.image.uri)} >
             <Img
               imgUri={photo.node.image.uri}
             />
           </TouchableOpacity>
         )
-      }))
+      })
     }
-
     return (
       <ScrollView>
         <Text className={styles.text} >Images</Text>
         <View className={styles.historyContainer}>
           {images}
         </View>
-      </ScrollView>
+      </ScrollView >
     );
   }
 }
 const mapStateToProps = state => {
-  let { hasCameraRollPermission } = state
+  let { hasCameraRollPermission, photos } = state
   return {
-    hasCameraRollPermission
+    hasCameraRollPermission, photos
   }
 }
 

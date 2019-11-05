@@ -6,7 +6,8 @@ import {
   CAMERA_ROLL_PERMISSION_GRANTED,
   TAKING_PICTURE,
   PREDICTION_RECEIVED,
-  RESET_PREDICTION
+  RESET_PREDICTION,
+  PHOTOS_LOADED
 } from "./actions";
 
 export default function reducer(
@@ -17,10 +18,16 @@ export default function reducer(
     takingPicture: false,
     predictions: [],
     prediction: false,
+    photos: [],
   },
   action
 ) {
   switch (action.type) {
+    case PHOTOS_LOADED: {
+      return update(state, {
+        photos: [...action.photos.edges]
+      })
+    }
     case RESET_PREDICTION: {
       return update(state, {
         predictions: {},
@@ -28,16 +35,12 @@ export default function reducer(
       })
     }
     case PREDICTION_RECEIVED: {
-      console.log(action.predictions)
       let preds = [];
       for (let [key, value] of Object.entries(action.predictions)) {
-        console.log(key);
         for (let [className, pred] of Object.entries(value)) {
-          console.log(className, " ", pred)
-          preds.push(prediction = { className, pred})
+          preds.push(prediction = { className, pred })
         }
       }
-      console.log(preds)
       return update(state, {
         pictureSent: false,
         prediction: true,

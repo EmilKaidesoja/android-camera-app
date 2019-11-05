@@ -5,45 +5,12 @@ import Cam from "./Cam";
 import { askCameraPermission, askCameraRollPermission } from "../../store/actions";
 
 class Camera extends Component {
-  state = {
-    openCamera: false
-  }
 
-  componentDidMount() {
-    let { hasCameraPermission,
-      hasCameraRollPermission,
-      askForCamPermission,
-      askForCamRollPermission } = this.props
-
-    if (!hasCameraPermission) {
-      askForCamPermission()
-    }
-    if (!hasCameraRollPermission) {
-      askForCamRollPermission()
-    }
-
-  }
-  componentDidUpdate() {
-    let { hasCameraPermission,
-      hasCameraRollPermission } = this.props
-
-    if (hasCameraRollPermission && hasCameraPermission) {
-      setTimeout(() => {
-        this.setState({ openCamera: true })
-      }, 0);
-    }
-  }
   render() {
-    if (this.state.openCamera) {
+    if (this.props.hasCameraPermission) {
       return <Cam />
     } else {
-      return (
-        <View style={{ marginTop: 200 }}>
-         {/* <Text>Camera</Text>
-          <Button
-            onPress={() => this.setState({ openCamera: true })}
-          title="Press me" />*/}
-        </View>)
+      return <View style={{ marginTop: 200 }} />
     }
   }
 }

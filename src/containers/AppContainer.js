@@ -5,9 +5,15 @@ import { StyleSheet, Text } from "react-native";
 
 import CameraContainer from "../screens/CameraContainer";
 import AuxWrapper from "../Utils/AuxWrapper";
-import History from "../screens/history";
+import History from "../screens/History";
+import { askCameraPermission, askCameraRollPermission } from "../../store/actions";
 
 class AppContainer extends Component {
+
+  componentDidMount() {
+      this.props.askPermissions()
+  }
+
   render() {
     return (
       <Slick style={styles.wrapper} loop={false}>
@@ -21,12 +27,21 @@ class AppContainer extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
-  return {};
+  let { hasCameraPermission, hasCameraRollPermission } = state
+  return { hasCameraPermission, hasCameraRollPermission };
 };
+
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    askPermissions() {
+      dispatch(askCameraPermission())
+      dispatch(askCameraRollPermission())
+    }
+  };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

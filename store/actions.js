@@ -1,5 +1,6 @@
 import { axiosCallApi } from "../middleware/axiosApi";
 import * as Permissions from "expo-permissions";
+import { CameraRoll } from "react-native"
 
 export const PICTURE_SENT = "PICTURE_SENT";
 export const CAMERA_PERMISSION_GRANTED = "";
@@ -7,6 +8,7 @@ export const CAMERA_ROLL_PERMISSION_GRANTED = "CAMERA_ROLL_PERMISSION_GRANTED";
 export const TAKING_PICTURE = "TAKING_PICTURE";
 export const PREDICTION_RECEIVED = "PREDICTION_RECEIVED";
 export const RESET_PREDICTION = "RESET_PREDICTION";
+export const PHOTOS_LOADED = "PHOTOS_LOADED";
 
 const URL = "http://46.101.208.127:5000"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
@@ -30,24 +32,38 @@ export function sendPicture(localUri) {
 }
 
 export function askCameraPermission() {
-  return (dispatch, getState) => {
-    Permissions.askAsync(Permissions.CAMERA).then(res => {
-      if (res.status !== "granted") {
-        alert("This app needs permission to use camera");
-      } else {
-        dispatch({ type: CAMERA_PERMISSION_GRANTED });
-      }
-    });
-  };
+    return (dispatch, getState) => {
+        Permissions.askAsync(Permissions.CAMERA).then(res => {
+            if (res.status !== "granted") {
+                alert("This app needs permission to use camera");
+            } else {
+                dispatch({ type: CAMERA_PERMISSION_GRANTED });
+            }
+        });
+    };
 }
 export function askCameraRollPermission() {
-  return (dispatch, getState) => {
-    Permissions.askAsync(Permissions.CAMERA_ROLL).then(res => {
-      if (res.status !== "granted") {
-        alert("This app needs permission to use gallery");
-      } else {
-        dispatch({ type: CAMERA_ROLL_PERMISSION_GRANTED });
-      }
-    });
-  };
+    return (dispatch, getState) => {
+        Permissions.askAsync(Permissions.CAMERA_ROLL).then(res => {
+            if (res.status !== "granted") {
+                alert("This app needs permission to use gallery");
+            } else {
+                dispatch(loadImages())
+                dispatch({ type: CAMERA_ROLL_PERMISSION_GRANTED });
+            }
+        });
+    };
+}
+
+export function loadImages() {
+    return (dispatch, getState) => {
+        let photoConfig = {
+            first: 30,
+            groupName: "DCIM",
+            assetType: 'Photos',
+        }
+        CameraRoll.getPhotos(photoConfig).then(imgs => {
+            dispatch({type: PHOTOS_LOADED, photos: imgs})
+        })
+    }
 }
