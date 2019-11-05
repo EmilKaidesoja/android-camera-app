@@ -59,11 +59,17 @@ export function loadImages() {
     return (dispatch, getState) => {
         let photoConfig = {
             first: 30,
-            groupName: "DCIM",
+            //groupName: "DCIM",
             assetType: 'Photos',
         }
         CameraRoll.getPhotos(photoConfig).then(imgs => {
-            dispatch({type: PHOTOS_LOADED, photos: imgs})
+            dispatch({ type: PHOTOS_LOADED, photos: imgs })
         })
+    }
+}
+export function saveToCameraRoll(uri, type) {
+    return (dispatch, getState) => {
+        CameraRoll.saveToCameraRoll(uri, type)
+        dispatch(loadImages())
     }
 }

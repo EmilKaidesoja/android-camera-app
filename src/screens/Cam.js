@@ -40,12 +40,6 @@ class Cam extends Component {
     discardPhoto = () => {
         this.setState({ pictureTaken: false, picSource: "" });
     };
-
-    analyzePhoto = () => {
-        console.log("image sent to the backend")
-        CameraRoll.saveToCameraRoll(this.state.pic.uri, "photo");
-        this.props.sendPic(this.state.pic.uri);
-    };
     resetPred = () => {
         this.discardPhoto();
         this.props.resetPrediction();
@@ -79,8 +73,6 @@ class Cam extends Component {
             return (
                 <Picture
                     picSource={this.state.picSource}
-                    discard={() => this.discardPhoto()}
-                    analyze={() => this.analyzePhoto()}
                 />
             );
         }

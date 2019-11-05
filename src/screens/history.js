@@ -41,12 +41,14 @@ class History extends Component {
       })
     }
     return (
-      <ScrollView>
+      <View className={styles.container}>
         <Text className={styles.text} >Images</Text>
-        <View className={styles.historyContainer}>
-          {images}
-        </View>
-      </ScrollView >
+        <ScrollView>
+          <View className={styles.historyContainer}>
+            {images}
+          </View>
+        </ScrollView >
+      </View>
     );
   }
 }

@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import styles from "../css/camera";
 
 class Picture extends Component {
-
+  analyzePhoto = () => {
+    console.log("image sent to the backend")
+    this.props.saveToCameraRoll(this.props.picSource, 'photo')
+    this.props.sendPic(this.props.picSource);
+  };
   render() {
     return (
       <View className={styles.takenImageContainer}>
@@ -22,7 +26,7 @@ class Picture extends Component {
 
           <TouchableOpacity
             className={styles.analyzeButton}
-            onPress={this.props.analyze}
+            onPress={() => this.analyzePhoto()}
           >
             <Text>Analyze photo</Text>
           </TouchableOpacity>
@@ -31,7 +35,23 @@ class Picture extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  let { } = state
+  return {
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    sendPic(localUri) {
+      dispatch(sendPicture(localUri));
+    },
+    saveToCameraRoll(uri, type) {
+      dispatch(saveToCameraRoll(uri, type))
+    }
+  }
+}
 export default connect(
-  null,
-  null
+  mapStateToProps,
+  mapDispatchToProps
 )(Picture);

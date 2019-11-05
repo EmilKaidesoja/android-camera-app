@@ -16,7 +16,7 @@ class AppContainer extends Component {
 
   render() {
     return (
-      <Slick style={styles.wrapper} loop={false}>
+      <Slick style={styles.wrapper} loop={false} showsPagination={false}>
         <AuxWrapper style={styles.cameraView}>
           <CameraContainer />
         </AuxWrapper>

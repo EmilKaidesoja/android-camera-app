@@ -12,6 +12,7 @@ export function axiosCallApi(uri, endpoint, headers, method, body) {
                 resolve(response.data)
             }
         }).catch(error => {
+            console.log(error)
             reject(error)
         })
     })
