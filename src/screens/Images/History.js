@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Text, View, CameraRoll, Button, ScrollView, TouchableOpacity } from "react-native";
-import styles from "../css/styles";
+import styles from "../../css/styles"
 import { connect } from "react-redux";
 import Img from "./Img";
-import AuxWrapper from "../Utils/AuxWrapper";
-import Picture from "./Picture";
+import AuxWrapper from "../../Utils/AuxWrapper";
+import Picture from "../Picture";
+
+import { OPEN_IMAGE } from "../../../store/actions";
 
 const _ = require("underscore")
 
@@ -13,8 +15,9 @@ class History extends Component {
     openPhoto: false,
     openPhotoUri: "",
   }
-  openImage = (uri) => {
-    this.setState({ openPhoto: true, openPhotoUri: uri })
+  openImage = (pic) => {
+    //this.setState({ openPhoto: true, openPhotoUri: uri })
+    this.props.openImg(pic)
   }
 
   discardPhoto = () => {
@@ -22,9 +25,7 @@ class History extends Component {
   }
 
   render() {
-    if (this.state.openPhoto) {
-      return <Picture picSource={this.state.openPhotoUri} discard={() => this.discardPhoto()} />
-    }
+   // if (this.props.openImage) return <Picture />
 
     let images = null
     if (this.props.photos.length > 0) {
@@ -32,7 +33,7 @@ class History extends Component {
         return (
           <TouchableOpacity
             key={_.uniqueId()}
-            onPress={() => this.openImage(photo.node.image.uri)} >
+            onPress={() => this.openImage(photo.node.image)} >
             <Img
               imgUri={photo.node.image.uri}
             />
@@ -53,15 +54,17 @@ class History extends Component {
   }
 }
 const mapStateToProps = state => {
-  let { hasCameraRollPermission, photos } = state
+  let { hasCameraRollPermission, photos, openImage } = state
   return {
-    hasCameraRollPermission, photos
+    hasCameraRollPermission, photos, openImage
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    openImg(pic){
+      dispatch({type:OPEN_IMAGE, picture: pic})
+    }
   }
 }
 

@@ -7,22 +7,38 @@ import {
   TAKING_PICTURE,
   PREDICTION_RECEIVED,
   RESET_PREDICTION,
-  PHOTOS_LOADED
+  PHOTOS_LOADED,
+  OPEN_IMAGE,
+  DISCARD_PIC
 } from "./actions";
 
 export default function reducer(
   state = {
     hasCameraPermission: false,
     hasCameraRollPermission: false,
+    picture: {},
     pictureSent: false,
-    takingPicture: false,
+    toggleLoader: false,
     predictions: [],
     prediction: false,
     photos: [],
+    openImage: false,
   },
   action
 ) {
   switch (action.type) {
+    case DISCARD_PIC: {
+      return update(state, {
+        openImage: false,
+        picture: {}
+      })
+    }
+    case OPEN_IMAGE: {
+      return update(state, {
+        openImage: true,
+        picture: {...action.picture}
+      })
+    }
     case PHOTOS_LOADED: {
       return update(state, {
         photos: [...action.photos.edges]
@@ -30,6 +46,7 @@ export default function reducer(
     }
     case RESET_PREDICTION: {
       return update(state, {
+        openImage: false,
         predictions: {},
         prediction: false
       })

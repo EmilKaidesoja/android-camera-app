@@ -3,34 +3,42 @@ import { connect } from "react-redux";
 import Slick from "react-native-slick";
 import { StyleSheet, Text } from "react-native";
 
-import CameraContainer from "../screens/CameraContainer";
-import AuxWrapper from "../Utils/AuxWrapper";
-import History from "../screens/History";
 import { askCameraPermission, askCameraRollPermission } from "../../store/actions";
+
+import CameraContainer from "../screens/Camera/CameraContainer";
+import AuxWrapper from "../Utils/AuxWrapper";
+import History from "../screens/Images/History";
+import PredictionModal from "../screens/PredictionModal";
+import Picture from "../screens/Picture";
+
 
 class AppContainer extends Component {
 
   componentDidMount() {
-      this.props.askPermissions()
+    this.props.askPermissions()
   }
 
   render() {
     return (
-      <Slick style={styles.wrapper} loop={false} showsPagination={false}>
-        <AuxWrapper style={styles.cameraView}>
-          <CameraContainer />
-        </AuxWrapper>
-        <AuxWrapper style={styles.savedImagesView}>
-          <History />
-        </AuxWrapper>
-      </Slick>
+      <AuxWrapper>
+        {this.props.openImage ? <Picture /> : (
+          <Slick style={styles.wrapper} loop={false} showsPagination={false}>
+            <AuxWrapper style={styles.cameraView}>
+              <CameraContainer />
+            </AuxWrapper>
+            <AuxWrapper style={styles.savedImagesView}>
+              <History />
+            </AuxWrapper>
+          </Slick>)}
+        <PredictionModal />
+      </AuxWrapper>
     );
   }
 }
 
 const mapStateToProps = state => {
-  let { hasCameraPermission, hasCameraRollPermission } = state
-  return { hasCameraPermission, hasCameraRollPermission };
+  let { hasCameraPermission, hasCameraRollPermission, openImage } = state
+  return { hasCameraPermission, hasCameraRollPermission, openImage };
 };
 
 const mapDispatchToProps = dispatch => {

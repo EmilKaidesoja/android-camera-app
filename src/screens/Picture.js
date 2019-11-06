@@ -2,33 +2,38 @@ import React, { Component } from "react";
 import { View, Button, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import styles from "../css/camera";
+import { saveToCameraRoll, sendPicture, DISCARD_PIC } from "../../store/actions";
 
 class Picture extends Component {
   analyzePhoto = () => {
     console.log("image sent to the backend")
-    this.props.saveToCameraRoll(this.props.picSource, 'photo')
-    this.props.sendPic(this.props.picSource);
+    this.props.saveToCameraRoll(this.props.picture.uri, 'photo')
+    this.props.sendPic(this.props.picture.uri);
   };
+  discard = () => {
+    this.props.discard()
+  }
   render() {
+    let { picture } = this.props
     return (
       <View className={styles.takenImageContainer}>
         <Image
           className={styles.takenImage}
-          source={{ uri: this.props.picSource }}
+          source={{ uri: picture.uri }}
         />
         <View className={styles.TakenImageOption}>
           <TouchableOpacity
             className={styles.discardButton}
-            onPress={this.props.discard}
+            onPress={() => this.discard()}
           >
-            <Text>Take new photo</Text>
+            <Text>Discard photo</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             className={styles.analyzeButton}
             onPress={() => this.analyzePhoto()}
           >
-            <Text>Analyze photo</Text>
+            <Text>Send photo</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -36,8 +41,9 @@ class Picture extends Component {
   }
 }
 const mapStateToProps = state => {
-  let { } = state
+  let { picture } = state
   return {
+    picture
   }
 };
 
@@ -48,6 +54,9 @@ const mapDispatchToProps = dispatch => {
     },
     saveToCameraRoll(uri, type) {
       dispatch(saveToCameraRoll(uri, type))
+    },
+    discard() {
+      dispatch({ type: DISCARD_PIC })
     }
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, View, Button } from "react-native";
 import { connect } from "react-redux";
 import Cam from "./Cam";
-import { askCameraPermission, askCameraRollPermission } from "../../store/actions";
+import { askCameraPermission, askCameraRollPermission } from "../../../store/actions";
 
 class Camera extends Component {
 

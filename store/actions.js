@@ -6,11 +6,14 @@ export const PICTURE_SENT = "PICTURE_SENT";
 export const CAMERA_PERMISSION_GRANTED = "";
 export const CAMERA_ROLL_PERMISSION_GRANTED = "CAMERA_ROLL_PERMISSION_GRANTED";
 export const TAKING_PICTURE = "TAKING_PICTURE";
+export const OPEN_IMAGE = "OPEN_IMAGE"
 export const PREDICTION_RECEIVED = "PREDICTION_RECEIVED";
 export const RESET_PREDICTION = "RESET_PREDICTION";
 export const PHOTOS_LOADED = "PHOTOS_LOADED";
+export const DISCARD_PIC = "DISCARD_PIC";
 
-const URL = "http://46.101.208.127:5000"
+//const URL = "http://46.101.208.127:5000"
+const URL = "https://a3fd1ef1.ngrok.io"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
 
 export function sendPicture(localUri) {

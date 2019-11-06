@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
     View,
     Button,
@@ -8,33 +9,25 @@ import {
     CameraRoll
 } from "react-native";
 import { Camera } from "expo-camera";
-import styles from "../css/camera";
-import AuxWrapper from "../Utils/AuxWrapper";
-import { connect } from "react-redux";
-import Picture from "./Picture";
+import styles from "../../css/camera";
+import AuxWrapper from "../../Utils/AuxWrapper";
+import Picture from "../Picture";
 
 import {
-    sendPicture,
-    TAKING_PICTURE,
-    RESET_PREDICTION
-} from "../../store/actions";
+    RESET_PREDICTION,
+    OPEN_IMAGE
+} from "../../../store/actions";
 
 class Cam extends Component {
     state = {
         type: Camera.Constants.Type.back,
         pictureTaken: false,
-        picSource: "",
-        pic: ""
     };
 
     takePicture = async () => {
         if (this.camera) {
             let picture = await this.camera.takePictureAsync();
-            this.setState({
-                pictureTaken: true,
-                picSource: picture.uri,
-                pic: picture
-            });
+            this.props.picTaken(picture)
         }
     };
     discardPhoto = () => {
@@ -48,34 +41,7 @@ class Cam extends Component {
         if (this.props.pictureSent) {
             return <Text>ANIMATION GOES HERE</Text>;
         }
-        if (this.props.prediction != "") {
-            return (
-                <View>
-                    <Text
-                        style={{ position: "absolute", top: 200, left: 100, fontSize: 30 }}
-                    >
-                        {this.props.prediction}
-                    </Text>
-                    <View style={{ height: 400 }} />
-                    <Button
-                        title="Reset"
-                        style={{
-                            marginTop: "80%",
-                            marginLeft: "30%",
-                            backgroundColor: "grey"
-                        }}
-                        onPress={() => this.resetPred()}
-                    />
-                </View>
-            );
-        }
-        if (this.state.pictureTaken) {
-            return (
-                <Picture
-                    picSource={this.state.picSource}
-                />
-            );
-        }
+       // if (this.props.openImage) return <Picture />
         return (
             <AuxWrapper>
                 <Camera
@@ -84,10 +50,10 @@ class Cam extends Component {
                     ref={ref => {
                         this.camera = ref;
                     }}
-                ></Camera>
+                />
                 <View className={styles.toolbar}>
                     <TouchableOpacity
-                        disabled={this.state.pictureTaken}
+                        disabled={this.props.openImage}
                         onPress={() => this.takePicture()}
                         className={styles.takePictureButton}
                     />
@@ -98,17 +64,18 @@ class Cam extends Component {
 }
 const mapStateToProps = state => {
     let { prediction,
-        predictions, } = state
+        predictions, openImage } = state
     return {
         prediction,
         predictions,
+        openImage
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        sendPic(localUri) {
-            dispatch(sendPicture(localUri));
+        picTaken(picture) {
+            dispatch({ type: OPEN_IMAGE, picture: picture });
         },
         resetPrediction() {
             dispatch({ type: RESET_PREDICTION });
