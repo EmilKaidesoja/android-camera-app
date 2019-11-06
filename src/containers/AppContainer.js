@@ -21,7 +21,6 @@ class AppContainer extends Component {
   render() {
     return (
       <AuxWrapper>
-        {this.props.openImage ? <Picture /> : (
           <Slick style={styles.wrapper} loop={false} showsPagination={false}>
             <AuxWrapper style={styles.cameraView}>
               <CameraContainer />
@@ -29,7 +28,8 @@ class AppContainer extends Component {
             <AuxWrapper style={styles.savedImagesView}>
               <History />
             </AuxWrapper>
-          </Slick>)}
+          </Slick>
+          {this.props.openImage ? <Picture /> : null}
         <PredictionModal />
       </AuxWrapper>
     );

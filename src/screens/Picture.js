@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, Button, Text, Image, TouchableOpacity } from "react-native";
+import { View, Button, Text, Image, TouchableOpacity, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import styles from "../css/camera";
 import { saveToCameraRoll, sendPicture, DISCARD_PIC } from "../../store/actions";
+import AuxWrapper from "../Utils/AuxWrapper";
 
 class Picture extends Component {
   analyzePhoto = () => {
@@ -14,36 +15,40 @@ class Picture extends Component {
     this.props.discard()
   }
   render() {
-    let { picture } = this.props
+    let { picture, pictureSent } = this.props
     return (
       <View className={styles.takenImageContainer}>
-        <Image
-          className={styles.takenImage}
-          source={{ uri: picture.uri }}
-        />
-        <View className={styles.TakenImageOption}>
-          <TouchableOpacity
-            className={styles.discardButton}
-            onPress={() => this.discard()}
-          >
-            <Text>Discard photo</Text>
-          </TouchableOpacity>
+        {pictureSent ? <ActivityIndicator size="large" color="#fe9000" style={{ marginTop: "60%" }} /> : (
+          <AuxWrapper>
+            <Image
+              className={styles.takenImage}
+              source={{ uri: picture.uri }}
+            />
+            <View className={styles.TakenImageOption}>
+              <TouchableOpacity
+                className={styles.discardButton}
+                onPress={() => this.discard()}
+              >
+                <Text>Discard photo</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            className={styles.analyzeButton}
-            onPress={() => this.analyzePhoto()}
-          >
-            <Text>Send photo</Text>
-          </TouchableOpacity>
-        </View>
+              <TouchableOpacity
+                className={styles.analyzeButton}
+                onPress={() => this.analyzePhoto()}
+              >
+                <Text>Send photo</Text>
+              </TouchableOpacity>
+            </View>
+          </AuxWrapper>
+        )}
       </View>
     );
   }
 }
 const mapStateToProps = state => {
-  let { picture } = state
+  let { picture, pictureSent } = state
   return {
-    picture
+    picture, pictureSent
   }
 };
 

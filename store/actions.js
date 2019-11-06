@@ -2,6 +2,8 @@ import { axiosCallApi } from "../middleware/axiosApi";
 import * as Permissions from "expo-permissions";
 import { CameraRoll } from "react-native"
 
+let _ = require("underscore")
+
 export const PICTURE_SENT = "PICTURE_SENT";
 export const CAMERA_PERMISSION_GRANTED = "";
 export const CAMERA_ROLL_PERMISSION_GRANTED = "CAMERA_ROLL_PERMISSION_GRANTED";
@@ -13,7 +15,7 @@ export const PHOTOS_LOADED = "PHOTOS_LOADED";
 export const DISCARD_PIC = "DISCARD_PIC";
 
 //const URL = "http://46.101.208.127:5000"
-const URL = "https://a3fd1ef1.ngrok.io"
+const URL = "https://9e46ec86.ngrok.io"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
 
 export function sendPicture(localUri) {
@@ -61,7 +63,7 @@ export function askCameraRollPermission() {
 export function loadImages() {
     return (dispatch, getState) => {
         let photoConfig = {
-            first: 30,
+            first: 102,
             //groupName: "DCIM",
             assetType: 'Photos',
         }
@@ -72,7 +74,17 @@ export function loadImages() {
 }
 export function saveToCameraRoll(uri, type) {
     return (dispatch, getState) => {
-        CameraRoll.saveToCameraRoll(uri, type)
-        dispatch(loadImages())
+        let savedImages = getState().photos;
+        let found = false
+        _.forEach(savedImages, img => {
+            if (img.node.image.uri == uri) {
+                found = true
+            }
+        })
+        if (!found) {
+            CameraRoll.saveToCameraRoll(uri, type).then(() => {
+                dispatch(loadImages())
+            })
+        }
     }
 }
