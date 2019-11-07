@@ -2,16 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
     View,
-    Button,
     Text,
     TouchableOpacity,
-    Image,
-    CameraRoll
 } from "react-native";
 import { Camera } from "expo-camera";
 import styles from "../../css/camera";
 import AuxWrapper from "../../Utils/AuxWrapper";
-import Picture from "../Picture";
 
 import {
     RESET_PREDICTION,
@@ -22,11 +18,17 @@ class Cam extends Component {
     state = {
         type: Camera.Constants.Type.back,
         pictureTaken: false,
+
+        takePictureConfig : {
+            skipProcessing: true,
+            base64: false,
+            exif: false,
+        }
     };
 
     takePicture = async () => {
         if (this.camera) {
-            let picture = await this.camera.takePictureAsync();
+            let picture = await this.camera.takePictureAsync(this.state.takePictureConfig);
             this.props.picTaken(picture)
         }
     };
@@ -41,7 +43,6 @@ class Cam extends Component {
         if (this.props.pictureSent) {
             return <Text>ANIMATION GOES HERE</Text>;
         }
-       // if (this.props.openImage) return <Picture />
         return (
             <AuxWrapper>
                 <Camera

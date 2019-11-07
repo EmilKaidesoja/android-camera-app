@@ -10,11 +10,13 @@ import AuxWrapper from "../Utils/AuxWrapper";
 import History from "../screens/Images/History";
 import PredictionModal from "../screens/PredictionModal";
 import Picture from "../screens/Picture";
+import { ScreenOrientation } from "expo";
 
 
 class AppContainer extends Component {
 
   componentDidMount() {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
     this.props.askPermissions()
   }
 
