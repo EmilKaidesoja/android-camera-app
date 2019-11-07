@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slick from "react-native-slick";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 
-import { askCameraPermission, askCameraRollPermission } from "../../store/actions";
+import { askCameraPermission, askCameraRollPermission, RESET_ERROR } from "../../store/actions";
 
 import CameraContainer from "../screens/Camera/CameraContainer";
 import AuxWrapper from "../Utils/AuxWrapper";
@@ -21,7 +21,21 @@ class AppContainer extends Component {
     this.props.askPermissions()
   }
 
+  resetError = () => {
+    this.props.reset()
+  }
+
   render() {
+    if (this.props.error) {
+      Alert.alert(
+        'Oops!',
+        'Something went terribly wrong!',
+        [
+          { text: 'Okay', onPress: () => this.resetError() },
+        ],
+        { cancelable: false },
+      );
+    }
     return (
       <AuxWrapper>
         <Slick style={styles.wrapper} loop={false} showsPagination={false}>
@@ -42,8 +56,8 @@ class AppContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  let { hasCameraPermission, hasCameraRollPermission, openImage } = state
-  return { hasCameraPermission, hasCameraRollPermission, openImage };
+  let { hasCameraPermission, hasCameraRollPermission, openImage, error } = state
+  return { hasCameraPermission, hasCameraRollPermission, openImage, error };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -51,6 +65,9 @@ const mapDispatchToProps = dispatch => {
     askPermissions() {
       dispatch(askCameraPermission())
       dispatch(askCameraRollPermission())
+    },
+    reset() {
+      dispatch({ type: RESET_ERROR })
     }
   };
 };

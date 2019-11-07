@@ -40,9 +40,6 @@ class Cam extends Component {
         this.props.resetPrediction();
     };
     render() {
-        if (this.props.pictureSent) {
-            return <Text>ANIMATION GOES HERE</Text>;
-        }
         return (
             <AuxWrapper>
                 <Camera
@@ -52,13 +49,13 @@ class Cam extends Component {
                         this.camera = ref;
                     }}
                 />
-                <View className={styles.toolbar}>
                     <TouchableOpacity
                         disabled={this.props.openImage}
                         onPress={() => this.takePicture()}
                         className={styles.takePictureButton}
                     />
-                </View>
+                <View className={styles.toolbar} />
+                
             </AuxWrapper>
         );
     }

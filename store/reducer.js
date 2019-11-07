@@ -9,7 +9,9 @@ import {
   RESET_PREDICTION,
   PHOTOS_LOADED,
   OPEN_IMAGE,
-  DISCARD_PIC
+  DISCARD_PIC,
+  ERROR_CAUGHT,
+  RESET_ERROR
 } from "./actions";
 
 export default function reducer(
@@ -23,10 +25,27 @@ export default function reducer(
     prediction: false,
     photos: [],
     openImage: false,
+    error: false
   },
   action
 ) {
   switch (action.type) {
+    case RESET_ERROR: {
+      return update(state, {
+        error: false,
+      })
+    }
+    case ERROR_CAUGHT: {
+      return update(state, {
+        picture: {},
+        pictureSent: false,
+        toggleLoader: false,
+        predictions: [],
+        prediction: false,
+        openImage: false,
+        error: true,
+      })
+    }
     case DISCARD_PIC: {
       return update(state, {
         openImage: false,
@@ -36,7 +55,7 @@ export default function reducer(
     case OPEN_IMAGE: {
       return update(state, {
         openImage: true,
-        picture: {...action.picture}
+        picture: { ...action.picture }
       })
     }
     case PHOTOS_LOADED: {

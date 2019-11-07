@@ -13,6 +13,8 @@ export const PREDICTION_RECEIVED = "PREDICTION_RECEIVED";
 export const RESET_PREDICTION = "RESET_PREDICTION";
 export const PHOTOS_LOADED = "PHOTOS_LOADED";
 export const DISCARD_PIC = "DISCARD_PIC";
+export const ERROR_CAUGHT = "ERROR_CAUGHT";
+export const RESET_ERROR = "RESET_ERROR";
 
 //const URL = "http://46.101.208.127:5000"
 const URL = "https://9e46ec86.ngrok.io"
@@ -32,6 +34,9 @@ export function sendPicture(localUri) {
 
         axiosCallApi(URL, endpoint, FORM_HEADERS, "POST", formData).then(response => {
             dispatch({ type: PREDICTION_RECEIVED, predictions: response })
+        }).catch(err => {
+            console.log(err, " ERROR CAUGHT")
+            dispatch({ type: ERROR_CAUGHT, error: true })
         })
     }
 }
