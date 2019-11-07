@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slick from "react-native-slick";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import { askCameraPermission, askCameraRollPermission } from "../../store/actions";
 
@@ -11,6 +11,7 @@ import History from "../screens/Images/History";
 import PredictionModal from "../screens/PredictionModal";
 import Picture from "../screens/Picture";
 import { ScreenOrientation } from "expo";
+import Header from "../screens/Header";
 
 
 class AppContainer extends Component {
@@ -23,15 +24,17 @@ class AppContainer extends Component {
   render() {
     return (
       <AuxWrapper>
-          <Slick style={styles.wrapper} loop={false} showsPagination={false}>
-            <AuxWrapper style={styles.cameraView}>
-              <CameraContainer />
-            </AuxWrapper>
-            <AuxWrapper style={styles.savedImagesView}>
-              <History />
-            </AuxWrapper>
-          </Slick>
-          {this.props.openImage ? <Picture /> : null}
+        <Slick style={styles.wrapper} loop={false} showsPagination={false}>
+          <AuxWrapper style={styles.cameraView}>
+            <Header text={"Camera"} />
+            <CameraContainer />
+          </AuxWrapper>
+          <AuxWrapper style={styles.savedImagesView}>
+            <Header text={"Images"} />
+            <History />
+          </AuxWrapper>
+        </Slick>
+        {this.props.openImage ? <Picture /> : null}
         <PredictionModal />
       </AuxWrapper>
     );

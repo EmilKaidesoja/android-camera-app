@@ -1,5 +1,5 @@
 .container {
-  height: 90%;
+  height: 80%;
   width: 100%;
 }
 .text {
@@ -8,7 +8,7 @@
   text-align: center;
 }
 .img {
-  margin: 3px;
+  margin: 0 3px 6px 3px;
   width: 114px;
   height: 165px;
 }
@@ -30,7 +30,7 @@
   width: 70%;
   height: 40px;
   margin: 10px 15%;
-  background-color: gainsboro
+  background-color: gainsboro;
 }
 .modalButtonText {
   text-align: center;
@@ -39,5 +39,14 @@
 }
 .modalText {
   font-size: 20px;
+  text-align: center;
+}
+
+.header {
+  height: 10%;
+}
+.headerText {
+  margin: 30px 0 10px;
+  font-size: 25px;
   text-align: center;
 }

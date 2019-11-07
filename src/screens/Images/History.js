@@ -25,7 +25,7 @@ class History extends Component {
   }
 
   render() {
-   // if (this.props.openImage) return <Picture />
+    // if (this.props.openImage) return <Picture />
 
     let images = null
     if (this.props.photos.length > 0) {
@@ -43,7 +43,6 @@ class History extends Component {
     }
     return (
       <View className={styles.container}>
-        <Text className={styles.text} >Images</Text>
         <ScrollView>
           <View className={styles.historyContainer}>
             {images}
@@ -62,8 +61,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    openImg(pic){
-      dispatch({type:OPEN_IMAGE, picture: pic})
+    openImg(pic) {
+      dispatch({ type: OPEN_IMAGE, picture: pic })
     }
   }
 }
