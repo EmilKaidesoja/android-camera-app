@@ -43,10 +43,16 @@
 }
 
 .header {
-  height: 10%;
+  padding: 30px 5px 5px 10px;
+  height: 11%;
+  flex-direction: row;
 }
 .headerText {
-  margin: 30px 0 10px;
+  flex: 2;
   font-size: 25px;
   text-align: center;
+}
+
+.icon {
+ 
 }

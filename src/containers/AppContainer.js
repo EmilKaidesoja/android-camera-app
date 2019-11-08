@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slick from "react-native-slick";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Alert, BackHandler } from "react-native";
 
-import { askCameraPermission, askCameraRollPermission, RESET_ERROR } from "../../store/actions";
+import {
+  askCameraPermission,
+  askCameraRollPermission,
+  RESET_ERROR,
+  RESET_PREDICTION,
+  DISCARD_PIC
+} from "../../store/actions";
 
 import CameraContainer from "../screens/Camera/CameraContainer";
 import AuxWrapper from "../Utils/AuxWrapper";
@@ -19,6 +25,17 @@ class AppContainer extends Component {
   componentDidMount() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
     this.props.askPermissions()
+    BackHandler.addEventListener("hardwareBackPress", () => this.backPressed())
+  }
+
+  backPressed = () => {
+    if (this.props.openImage) {
+      this.props.discard()
+      return true
+    } else if (this.props.prediction) {
+      this.props.reset()
+      return true
+    }
   }
 
   resetError = () => {
@@ -56,8 +73,18 @@ class AppContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  let { hasCameraPermission, hasCameraRollPermission, openImage, error } = state
-  return { hasCameraPermission, hasCameraRollPermission, openImage, error };
+  let { hasCameraPermission,
+    hasCameraRollPermission,
+    openImage,
+    error,
+    prediction } = state
+  return {
+    hasCameraPermission,
+    hasCameraRollPermission,
+    openImage,
+    error,
+    prediction
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -68,6 +95,12 @@ const mapDispatchToProps = dispatch => {
     },
     reset() {
       dispatch({ type: RESET_ERROR })
+    },
+    discard() {
+      dispatch({ type: DISCARD_PIC })
+    },
+    reset() {
+      dispatch({ type: RESET_PREDICTION })
     }
   };
 };

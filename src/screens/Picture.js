@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import styles from "../css/camera";
 import { saveToCameraRoll, sendPicture, DISCARD_PIC } from "../../store/actions";
 import AuxWrapper from "../Utils/AuxWrapper";
+import Header from "./Header";
 
 class Picture extends Component {
   analyzePhoto = () => {
@@ -20,6 +21,7 @@ class Picture extends Component {
       <View className={styles.takenImageContainer}>
         {pictureSent ? <ActivityIndicator size="large" color="#fe9000" style={{ marginTop: "60%" }} /> : (
           <AuxWrapper>
+            <Header text={"Image"} showBackButton={true} />
             <Image
               className={styles.takenImage}
               source={{ uri: picture.uri }}

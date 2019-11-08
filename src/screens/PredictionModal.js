@@ -29,7 +29,7 @@ class PredictionModal extends Component {
                     {preds}
                     <TouchableOpacity onPress={this.reset} className={styles.modalButton} >
                         <Text className={styles.modalButtonText} >
-                            Okay
+                            Awesome!
                         </Text>
                     </TouchableOpacity>
                 </View>
