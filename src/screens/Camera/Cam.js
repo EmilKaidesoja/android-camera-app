@@ -53,9 +53,7 @@ class Cam extends Component {
                         disabled={this.props.openImage}
                         onPress={() => this.takePicture()}
                         className={styles.takePictureButton}
-                    />
-                <View className={styles.toolbar} />
-                
+                    />                
             </AuxWrapper>
         );
     }

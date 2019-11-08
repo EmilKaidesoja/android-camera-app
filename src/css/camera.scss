@@ -1,5 +1,5 @@
 .cameraContainer {
-  height: 79%;
+  height: 100%;
   width: 100%;
 }
 .takePictureButton {
@@ -54,4 +54,13 @@
 .toolbar {
   height: 10%;
   background-color: #2a2626;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.icon {
+ color: white;
+}
+.iconActive {
+  color: red;
 }

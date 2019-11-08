@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slick from "react-native-slick";
-import { StyleSheet, Alert, BackHandler } from "react-native";
+import { StyleSheet, Alert, BackHandler, View } from "react-native";
 
 import {
   askCameraPermission,
@@ -18,7 +18,7 @@ import PredictionModal from "../screens/PredictionModal";
 import Picture from "../screens/Picture";
 import { ScreenOrientation } from "expo";
 import Header from "../screens/Header";
-
+import Toolbar from "../screens/Toolbar";
 
 class AppContainer extends Component {
 
@@ -55,17 +55,17 @@ class AppContainer extends Component {
     }
     return (
       <AuxWrapper>
-        <Slick style={styles.wrapper} loop={false} showsPagination={false}>
-          <AuxWrapper style={styles.cameraView}>
+        <Slick style={inlineStyles.wrapper} loop={false} showsPagination={false}>
+          <AuxWrapper style={inlineStyles.cameraView}>
             <Header text={"Camera"} />
             <CameraContainer />
           </AuxWrapper>
-          <AuxWrapper style={styles.savedImagesView}>
+          <AuxWrapper style={inlineStyles.savedImagesView}>
             <Header text={"Images"} />
             <History />
           </AuxWrapper>
         </Slick>
-        {this.props.openImage ? <Picture /> : null}
+        {this.props.openImage ? <Picture /> : <Toolbar  cameraActive={true} />}
         <PredictionModal />
       </AuxWrapper>
     );
@@ -110,7 +110,7 @@ export default connect(
   mapDispatchToProps
 )(AppContainer);
 
-const styles = StyleSheet.create({
+const inlineStyles = StyleSheet.create({
   wrapper: {
     color: "#fff"
   },

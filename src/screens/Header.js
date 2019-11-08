@@ -15,7 +15,7 @@ class Header extends Component {
             <View className={styles.header}>
                 {this.props.showBackButton ? <Icon
                     name={"arrow-back"}
-                    iconStyle={styles.icon}
+                    //iconStyle={}
                     size={33}
                     onPress={() => this.goBack()}
                 /> : null}
