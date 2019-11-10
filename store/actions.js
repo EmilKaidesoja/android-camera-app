@@ -16,8 +16,8 @@ export const DISCARD_PIC = "DISCARD_PIC";
 export const ERROR_CAUGHT = "ERROR_CAUGHT";
 export const RESET_ERROR = "RESET_ERROR";
 
-const URL = "http://165.22.92.140:5000"
-//const URL = "https://9e46ec86.ngrok.io"
+const URL = "http://167.172.187.181:5000"
+
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
 
 export function sendPicture(localUri) {
