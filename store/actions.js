@@ -15,6 +15,8 @@ export const PHOTOS_LOADED = "PHOTOS_LOADED";
 export const DISCARD_PIC = "DISCARD_PIC";
 export const ERROR_CAUGHT = "ERROR_CAUGHT";
 export const RESET_ERROR = "RESET_ERROR";
+export const SLICK_CONFIG = "SLICK_CONFIG";
+export const SET_SLICK_INDEX = "SET_SLICK_INDEX";
 
 const URL = "http://167.172.187.181:5000"
 
@@ -90,6 +92,14 @@ export function saveToCameraRoll(uri, type) {
             CameraRoll.saveToCameraRoll(uri, type).then(() => {
                 dispatch(loadImages())
             })
+        }
+    }
+}
+
+export function slickSwipeHandler(index) {
+    return (dispatch, getState) => {
+        if (index == 2 || index == 0) {
+            dispatch({ type: SET_SLICK_INDEX, index: 1 })
         }
     }
 }

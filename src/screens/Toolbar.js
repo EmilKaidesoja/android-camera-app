@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
+import { connect } from "react-redux";
 
 import styles from "../css/camera"
 
@@ -8,22 +9,22 @@ class Toolbar extends Component {
 
     activeIconHandler = (origin) => {
         switch (origin) {
+            case "info": {
+                if (this.props.slickIndex == 0) {
+                    return styles.iconActive
+                } else {
+                    return styles.icon
+                }
+            }
             case "cam": {
-                if (this.props.cameraActive) {
+                if (this.props.slickIndex == 1) {
                     return styles.iconActive
                 } else {
                     return styles.icon
                 }
             }
             case "gallery": {
-                if (this.props.galleyActive) {
-                    return styles.iconActive
-                } else {
-                    return styles.icon
-                }
-            }
-            case "info": {
-                if (this.props.infoActive) {
+                if (this.props.slickIndex == 2) {
                     return styles.iconActive
                 } else {
                     return styles.icon
@@ -32,6 +33,9 @@ class Toolbar extends Component {
         }
     }
 
+    navigateTo = (index) => {
+        //this.props.slick.scrollBy(index, true)
+    }
     render() {
         return (
             <View className={styles.toolbar}>
@@ -39,23 +43,42 @@ class Toolbar extends Component {
                     <Icon
                         name={"info"}
                         iconStyle={this.activeIconHandler("info")}
-                        size={33} />
+                        size={33}
+                        onPress={() => this.navigateTo(0)}
+                        underlayColor={"#2a2626"} />
                 </View>
                 <View style={{ flex: 3 }}>
                     <Icon
                         name={"camera-alt"}
                         iconStyle={this.activeIconHandler("cam")}
-                        size={40} />
+                        size={40}
+                        onPress={() => this.navigateTo(1)}
+                        underlayColor={"#2a2626"} />
                 </View>
                 <View style={{ flex: 3 }}>
                     <Icon
                         name={"photo-library"}
                         iconStyle={this.activeIconHandler("gallery")}
-                        size={33} />
+                        size={33}
+                        onPress={() => this.navigateTo(2)}
+                        underlayColor={"#2a2626"} />
                 </View>
 
             </View>
         )
     }
 }
-export default Toolbar
+
+const mapStateToProps = state => {
+    let { slick, slickIndex } = state
+    return {
+        slick, slickIndex
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);

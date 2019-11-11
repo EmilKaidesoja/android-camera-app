@@ -11,7 +11,9 @@ import {
   OPEN_IMAGE,
   DISCARD_PIC,
   ERROR_CAUGHT,
-  RESET_ERROR
+  RESET_ERROR,
+  SLICK_CONFIG,
+  SET_SLICK_INDEX
 } from "./actions";
 
 export default function reducer(
@@ -25,11 +27,23 @@ export default function reducer(
     prediction: false,
     photos: [],
     openImage: false,
-    error: false
+    error: false,
+    slick: {},
+    slickIndex: 1
   },
   action
 ) {
   switch (action.type) {
+    case SET_SLICK_INDEX: {
+      return update(state, {
+        slickIndex: action.index
+      })
+    }
+    case SLICK_CONFIG: {
+      return update(state, {
+        slick: action.slick
+      })
+    }
     case RESET_ERROR: {
       return update(state, {
         error: false,
@@ -65,9 +79,9 @@ export default function reducer(
     }
     case RESET_PREDICTION: {
       return update(state, {
+        prediction: false,
         openImage: false,
         predictions: {},
-        prediction: false
       })
     }
     case PREDICTION_RECEIVED: {
