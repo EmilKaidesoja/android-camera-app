@@ -22,17 +22,17 @@
   width: 100%;
 }
 .discardButton {
-  padding: 12px;
+  padding: 13px;
   border-radius: 4px;
   background-color: rgb(179, 169, 169);
-  margin: 0% 3% 0% 0%;
+  margin: 0% 5% 0% 5%;
   flex: 2;
 }
 .analyzeButton {
-  padding: 12px;
+  padding: 13px;
   border-radius: 4px;
   background-color: #0e7477;
-  margin: 0% 0% 0% 3%;
+  margin: 0% 5% 0% 5%;
   flex: 2;
 }
 
@@ -41,12 +41,12 @@
   font-weight: normal;
   text-align: center;
   color: #fff;
-  line-height: 25px;
+  line-height: 20px;
 }
 
 .toolbar {
   height: 10%;
-  background-color: #191d31;
+  background-color: #171920;
   flex-direction: row;
   padding: 10px;
 }
@@ -55,7 +55,7 @@
   color: white;
 }
 .iconActive {
-  color: red;
+  color: #0e7477;
 }
 .flashIcon {
   position: absolute;
