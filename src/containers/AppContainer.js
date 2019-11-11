@@ -23,6 +23,8 @@ import { ScreenOrientation } from "expo";
 import Header from "../screens/Header";
 import Toolbar from "../screens/Toolbar";
 
+let _ = require("underscore");
+
 class AppContainer extends Component {
 
   componentDidMount() {
@@ -47,8 +49,6 @@ class AppContainer extends Component {
   }
 
   handleSwipe = (e, state) => {
-    e.persist()
-    console.log("swipe toggled ", state.index)
     this.props.handleSlickSwipe(state.index)
   }
 
@@ -57,6 +57,7 @@ class AppContainer extends Component {
       style: inlineStyles.wrapper,
       loop: false,
       showsPagination: false,
+      index: this.props.slickIndex,
       onMomentumScrollEnd: (e, state) => this.handleSwipe(e, state)
     }
     if (this.props.error) {

@@ -96,10 +96,8 @@ export function saveToCameraRoll(uri, type) {
     }
 }
 
-export function slickSwipeHandler(index) {
+export function slickSwipeHandler(amount) {
     return (dispatch, getState) => {
-        if (index == 2 || index == 0) {
-            dispatch({ type: SET_SLICK_INDEX, index: 1 })
-        }
+        getState().slick.scrollBy(amount, true)
     }
 }

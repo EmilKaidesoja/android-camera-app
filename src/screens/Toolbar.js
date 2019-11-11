@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
 import { connect } from "react-redux";
+import { slickSwipeHandler } from "../../store/actions";
 
 import styles from "../css/camera"
 
@@ -33,8 +34,9 @@ class Toolbar extends Component {
         }
     }
 
-    navigateTo = (index) => {
-        //this.props.slick.scrollBy(index, true)
+    navigateTo = (navTo) => {
+        let { slickIndex } = this.props
+        this.props.scrollBy(navTo - slickIndex)
     }
     render() {
         return (
@@ -78,7 +80,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        scrollBy(amount) {
+            dispatch(slickSwipeHandler(amount))
+        }
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
