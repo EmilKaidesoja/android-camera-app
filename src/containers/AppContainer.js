@@ -11,7 +11,7 @@ import {
   RESET_PREDICTION,
   DISCARD_PIC,
   SLICK_CONFIG,
-  SET_SLICK_INDEX,
+  SET_SLICK_INDEX
 } from "../../store/actions";
 
 import CameraContainer from "../screens/Camera/CameraContainer";
@@ -26,31 +26,30 @@ import Toolbar from "../screens/Toolbar";
 let _ = require("underscore");
 
 class AppContainer extends Component {
-
   componentDidMount() {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
-    this.props.askPermissions()
-    BackHandler.addEventListener("hardwareBackPress", () => this.backPressed())
-    this.props.configSlick(this.slick)
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    this.props.askPermissions();
+    BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
+    this.props.configSlick(this.slick);
   }
 
   backPressed = () => {
     if (this.props.openImage) {
-      this.props.discard()
-      return true
+      this.props.discard();
+      return true;
     } else if (this.props.prediction) {
-      this.props.reset()
-      return true
+      this.props.reset();
+      return true;
     }
-  }
+  };
 
   resetError = () => {
-    this.props.reset()
-  }
+    this.props.reset();
+  };
 
   handleSwipe = (e, state) => {
-    this.props.handleSlickSwipe(state.index)
-  }
+    this.props.handleSlickSwipe(state.index);
+  };
 
   render() {
     const slickSettings = {
@@ -59,24 +58,23 @@ class AppContainer extends Component {
       showsPagination: false,
       index: this.props.slickIndex,
       onMomentumScrollEnd: (e, state) => this.handleSwipe(e, state)
-    }
+    };
     if (this.props.error) {
       Alert.alert(
-        'Oops!',
-        'Something went terribly wrong!',
-        [
-          { text: 'Okay', onPress: () => this.resetError() },
-        ],
-        { cancelable: false },
+        "Oops!",
+        "Something went terribly wrong!",
+        [{ text: "Okay", onPress: () => this.resetError() }],
+        { cancelable: false }
       );
     }
     return (
       <AuxWrapper>
-        <Slick {...slickSettings}
-
+        <Slick
+          {...slickSettings}
           ref={ref => {
             this.slick = ref;
-          }} >
+          }}
+        >
           <AuxWrapper style={inlineStyles.cameraView}>
             <Header text={"Info"} />
             <Text>BOOM BABY!</Text>
@@ -90,7 +88,7 @@ class AppContainer extends Component {
             <History />
           </AuxWrapper>
         </Slick>
-        {this.props.openImage ? <Picture /> : <Toolbar cameraActive={true} />}
+        {!this.props.openImage ? <Picture /> : <Toolbar cameraActive={true} />}
         <PredictionModal />
       </AuxWrapper>
     );
@@ -98,12 +96,14 @@ class AppContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  let { hasCameraPermission,
+  let {
+    hasCameraPermission,
     hasCameraRollPermission,
     openImage,
     error,
     prediction,
-    slickIndex } = state
+    slickIndex
+  } = state;
   return {
     hasCameraPermission,
     hasCameraRollPermission,
@@ -117,23 +117,23 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     askPermissions() {
-      dispatch(askCameraPermission())
-      dispatch(askCameraRollPermission())
+      dispatch(askCameraPermission());
+      dispatch(askCameraRollPermission());
     },
     reset() {
-      dispatch({ type: RESET_ERROR })
+      dispatch({ type: RESET_ERROR });
     },
     discard() {
-      dispatch({ type: DISCARD_PIC })
+      dispatch({ type: DISCARD_PIC });
     },
     reset() {
-      dispatch({ type: RESET_PREDICTION })
+      dispatch({ type: RESET_PREDICTION });
     },
     configSlick(slickRef) {
-      dispatch({ type: SLICK_CONFIG, slick: slickRef })
+      dispatch({ type: SLICK_CONFIG, slick: slickRef });
     },
     handleSlickSwipe(index) {
-      dispatch({ type: SET_SLICK_INDEX, index: index })
+      dispatch({ type: SET_SLICK_INDEX, index: index });
     }
   };
 };
