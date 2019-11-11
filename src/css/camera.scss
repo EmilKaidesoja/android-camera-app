@@ -59,8 +59,13 @@
 }
 
 .icon {
- color: white;
+  color: white;
 }
 .iconActive {
   color: red;
+}
+.flashIcon {
+  position: absolute;
+  right: 20px;
+  top: 150px;
 }

@@ -65,7 +65,6 @@ class Toolbar extends Component {
                         onPress={() => this.navigateTo(2)}
                         underlayColor={"#2a2626"} />
                 </View>
-
             </View>
         )
     }

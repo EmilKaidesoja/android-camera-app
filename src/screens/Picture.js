@@ -23,7 +23,7 @@ class Picture extends Component {
           <AuxWrapper>
             <Header text={"Image"} showBackButton={true} />
             <Image
-              className={styles.takenImage}
+              className={[styles.takenImage, {resizeMode: "contain"}]}
               source={{ uri: picture.uri }}
             />
             <View className={styles.TakenImageOption}>
