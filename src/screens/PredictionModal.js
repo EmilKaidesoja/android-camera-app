@@ -16,15 +16,17 @@ class PredictionModal extends Component {
     render() {
         let { prediction, predictions, pictureSent } = this.props
         let preds = _.map(predictions, pred => {
-            return (
-                <AuxWrapper key={_.uniqueId()}>
-                    <Text className={styles.modalText} >{`${pred.className}: ${pred.pred}%`} </Text>
-                </AuxWrapper>
-            )
+            if (!pred.pred.includes("e")) {
+                return (
+                    <AuxWrapper key={_.uniqueId()}>
+                        <Text className={styles.modalText} >{`${pred.className}: ${pred.pred}%`} </Text>
+                    </AuxWrapper>
+                )
+            }
         })
         return (
             <Modal isVisible={prediction} >
-                <View /*style={{ flex: 1 }}*/ className={styles.modal}>
+                <View className={styles.modal}>
                     <Text className={styles.text} >Predictions</Text>
                     {preds}
                     <TouchableOpacity onPress={this.reset} className={styles.modalButton} >

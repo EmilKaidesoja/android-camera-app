@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, CameraRoll, Button, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, CameraRoll, Button, ScrollView, TouchableOpacity, TouchableHighlight } from "react-native";
 import styles from "../../css/styles"
 import { connect } from "react-redux";
 import Img from "./Img";

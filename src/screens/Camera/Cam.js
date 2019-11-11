@@ -83,7 +83,6 @@ class Cam extends Component {
                     style={{ transform: [{ rotate: '-90deg' }] }} >
                     <View className={styles.placeholderSlider} />
                     <Slider
-                        underlayColor="green"
                         thumbTintColor="white"
                         onValueChange={(amount) => this.zoom(amount)}
                         className={styles.zoomSlider} />
