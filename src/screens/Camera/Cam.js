@@ -4,7 +4,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TouchableHighlight
+    TouchableHighlight,
+    Slider
 } from "react-native";
 import { Camera } from "expo-camera";
 import { Icon } from "react-native-elements";
@@ -20,7 +21,8 @@ class Cam extends Component {
     state = {
         type: Camera.Constants.Type.back,
         pictureTaken: false,
-        flashMode: Camera.Constants.FlashMode.on,
+        flashMode: Camera.Constants.FlashMode.off,
+        zoom: 0,
 
         takePictureConfig: {
             skipProcessing: true,
@@ -61,6 +63,9 @@ class Cam extends Component {
         if (tempFlash == 1) tempFlash = 2
         this.setState({ flashMode: tempFlash + 1 })
     }
+    zoom = (amount) => {
+        this.setState({ zoom: amount })
+    }
     render() {
         return (
             <AuxWrapper>
@@ -68,10 +73,21 @@ class Cam extends Component {
                     className={styles.cameraContainer}
                     flashMode={this.state.flashMode}
                     type={this.state.type}
+                    zoom={this.state.zoom}
                     ref={ref => {
                         this.camera = ref;
                     }}
                 />
+                <View
+                    className={styles.sliderContainer}
+                    style={{ transform: [{ rotate: '-90deg' }] }} >
+                    <View className={styles.placeholderSlider} />
+                    <Slider
+                        underlayColor="green"
+                        thumbTintColor="white"
+                        onValueChange={(amount) => this.zoom(amount)}
+                        className={styles.zoomSlider} />
+                </View>
                 <View className={styles.flashIcon} >
                     <Icon name={this.flashHandler()}
                         onPress={() => this.toggleFlash()}

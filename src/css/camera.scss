@@ -69,3 +69,22 @@
   right: 20px;
   top: 150px;
 }
+.zoomSlider {
+  width: 85%;
+  height: 10px;
+}
+
+.sliderContainer {
+  position: absolute;
+  right: -38px;
+  top: 240px;
+  width: 150px;
+}
+.placeholderSlider {
+  width: 70%;
+  height: 10px;
+  background-color:rgba(255, 255, 255, 0.3);
+  position: absolute;
+  right: 30px;
+  border-radius: 5px;
+}
