@@ -88,7 +88,7 @@ class AppContainer extends Component {
             <History />
           </AuxWrapper>
         </Slick>
-        {!this.props.openImage ? <Picture /> : <Toolbar cameraActive={true} />}
+        {this.props.openImage ? <Picture /> : <Toolbar cameraActive={true} />}
         <PredictionModal />
       </AuxWrapper>
     );

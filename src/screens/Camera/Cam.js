@@ -4,8 +4,11 @@ import {
     View,
     Text,
     TouchableOpacity,
+    TouchableHighlight,
+    Slider
 } from "react-native";
 import { Camera } from "expo-camera";
+import { Icon } from "react-native-elements";
 import styles from "../../css/camera";
 import AuxWrapper from "../../Utils/AuxWrapper";
 
@@ -18,8 +21,10 @@ class Cam extends Component {
     state = {
         type: Camera.Constants.Type.back,
         pictureTaken: false,
+        flashMode: Camera.Constants.FlashMode.off,
+        zoom: 0,
 
-        takePictureConfig : {
+        takePictureConfig: {
             skipProcessing: true,
             base64: false,
             exif: false,
@@ -39,21 +44,62 @@ class Cam extends Component {
         this.discardPhoto();
         this.props.resetPrediction();
     };
+    flashHandler = () => {
+        switch (this.state.flashMode) {
+            case 0: {
+                return "flash-off"
+            }
+            case 1: {
+                return "flash-on"
+            }
+            case 3: {
+                return "flash-auto"
+            }
+        }
+    }
+    toggleFlash = () => {
+        let tempFlash = this.state.flashMode
+        if (tempFlash == 3) tempFlash = -1
+        if (tempFlash == 1) tempFlash = 2
+        this.setState({ flashMode: tempFlash + 1 })
+    }
+    zoom = (amount) => {
+        this.setState({ zoom: amount })
+    }
     render() {
         return (
             <AuxWrapper>
                 <Camera
                     className={styles.cameraContainer}
+                    flashMode={this.state.flashMode}
                     type={this.state.type}
+                    zoom={this.state.zoom}
                     ref={ref => {
                         this.camera = ref;
                     }}
                 />
-                    <TouchableOpacity
-                        disabled={this.props.openImage}
-                        onPress={() => this.takePicture()}
-                        className={styles.takePictureButton}
-                    />                
+                <View
+                    className={styles.sliderContainer}
+                    style={{ transform: [{ rotate: '-90deg' }] }} >
+                    <View className={styles.placeholderSlider} />
+                    <Slider
+                        thumbTintColor="white"
+                        onValueChange={(amount) => this.zoom(amount)}
+                        className={styles.zoomSlider} />
+                </View>
+                <View className={styles.flashIcon} >
+                    <Icon name={this.flashHandler()}
+                        onPress={() => this.toggleFlash()}
+                        size={35}
+                        color={"#fff"}
+                        underlayColor={"transparent"}
+                    />
+                </View>
+                <TouchableOpacity
+                    disabled={this.props.openImage}
+                    onPress={() => this.takePicture()}
+                    className={styles.takePictureButton}
+                />
             </AuxWrapper>
         );
     }
