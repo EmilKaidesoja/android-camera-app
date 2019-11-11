@@ -25,8 +25,6 @@ class History extends Component {
   }
 
   render() {
-    // if (this.props.openImage) return <Picture />
-
     let images = null
     if (this.props.photos.length > 0) {
       images = _.map(this.props.photos, photo => {
@@ -47,7 +45,7 @@ class History extends Component {
           <View className={styles.historyContainer}>
             {images}
           </View>
-        </ScrollView >
+        </ScrollView>
       </View>
     );
   }

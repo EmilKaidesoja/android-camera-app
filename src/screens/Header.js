@@ -15,11 +15,12 @@ class Header extends Component {
             <View className={styles.header}>
                 {this.props.showBackButton ? <Icon
                     name={"arrow-back"}
-                    //iconStyle={}
                     size={33}
                     onPress={() => this.goBack()}
+                    color={"#fff"}
                 /> : null}
                 <Text
+                    style={{ color: "#fff" }}
                     className={styles.headerText}
                 >{this.props.text}</Text>
 

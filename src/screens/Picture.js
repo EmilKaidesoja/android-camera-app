@@ -33,34 +33,33 @@ class Picture extends Component {
         {pictureSent ? (
           <ActivityIndicator
             size="large"
-            color="#fe9000"
+            color="#191d31"
             style={{ marginTop: "60%" }}
           />
         ) : (
-          <AuxWrapper>
-            <Header text={"Image"} showBackButton={true} />
-            <Image
-              className={[styles.takenImage, {resizeMode: "contain"}]}
-              source={{ uri: picture.uri }}
-            />
+            <AuxWrapper>
+              <Header text={"Image"} showBackButton={true} />
+              <Image
+                className={[styles.takenImage, { resizeMode: "contain" }]}
+                source={{ uri: picture.uri }}
+              />
+              <View className={styles.toolbar} style={{ paddingTop: 10, height: "12%"}}>
+                <TouchableOpacity
+                  className={styles.discardButton}
+                  onPress={() => this.discard()}
+                >
+                  <Text className={styles.buttonText}>Retake</Text>
+                </TouchableOpacity>
 
-            <View className={styles.toolbar} style={{ paddingTop: 10 }}>
-              <TouchableOpacity
-                className={styles.discardButton}
-                onPress={() => this.discard()}
-              >
-                <Text className={styles.buttonText}>Retake</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                className={styles.analyzeButton}
-                onPress={() => this.analyzePhoto()}
-              >
-                <Text className={styles.buttonText}>Send</Text>
-              </TouchableOpacity>
-            </View>
-          </AuxWrapper>
-        )}
+                <TouchableOpacity
+                  className={styles.analyzeButton}
+                  onPress={() => this.analyzePhoto()}
+                >
+                  <Text className={styles.buttonText}>Send</Text>
+                </TouchableOpacity>
+              </View>
+            </AuxWrapper>
+          )}
       </View>
     );
   }
