@@ -15,6 +15,7 @@ import {
 } from "../../store/actions";
 
 import CameraContainer from "../screens/Camera/CameraContainer";
+import InfoContainer from "../screens/Info/InfoContainer";
 import AuxWrapper from "../Utils/AuxWrapper";
 import History from "../screens/Images/History";
 import PredictionModal from "../screens/PredictionModal";
@@ -77,7 +78,7 @@ class AppContainer extends Component {
         >
           <AuxWrapper style={inlineStyles.cameraView}>
             <Header text={"Info"} />
-            <Text>BOOM BABY!</Text>
+            <InfoContainer />
           </AuxWrapper>
           <AuxWrapper style={inlineStyles.cameraView}>
             <Header text={"Camera"} />
@@ -159,7 +160,7 @@ const inlineStyles = StyleSheet.create({
   },
   text: {
     color: "black",
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold"
   }
 });
