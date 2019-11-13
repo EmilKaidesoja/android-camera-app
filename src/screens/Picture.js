@@ -48,7 +48,7 @@ class Picture extends Component {
                   className={styles.discardButton}
                   onPress={() => this.discard()}
                 >
-                  <Text className={styles.buttonText}>Retake</Text>
+                  <Text className={styles.buttonText}>Cancel</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity

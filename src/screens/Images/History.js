@@ -40,7 +40,7 @@ class History extends Component {
       })
     }
     return (
-      <View className={styles.container}>
+      <View className={styles.container} style={{paddingBottom: 69}}>
         <ScrollView>
           <View className={styles.historyContainer}>
             {images}
