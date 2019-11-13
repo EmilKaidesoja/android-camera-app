@@ -77,7 +77,7 @@ class AppContainer extends Component {
           }}
         >
           <AuxWrapper style={inlineStyles.cameraView}>
-            <Header text={"Info"} />
+            <Header text={"About"} />
             <InfoContainer />
           </AuxWrapper>
           <AuxWrapper style={inlineStyles.cameraView}>
