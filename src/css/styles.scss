@@ -67,3 +67,12 @@
 .infoUpperText{
   text-align: center;
 }
+.loader {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 100;
+  align-items: center;
+  justify-content: center;
+}

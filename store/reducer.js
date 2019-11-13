@@ -1,5 +1,4 @@
 
-
 import {
   PICTURE_SENT,
   CAMERA_PERMISSION_GRANTED,
@@ -13,7 +12,8 @@ import {
   ERROR_CAUGHT,
   RESET_ERROR,
   SLICK_CONFIG,
-  SET_SLICK_INDEX
+  SET_SLICK_INDEX,
+  LOADING_IMAGES
 } from "./actions";
 
 export default function reducer(
@@ -29,11 +29,18 @@ export default function reducer(
     openImage: false,
     error: false,
     slick: {},
-    slickIndex: 1
+    slickIndex: 1,
+    historyLength: 0,
+    loadingImages: false,
   },
   action
 ) {
   switch (action.type) {
+    case LOADING_IMAGES: {
+      return update(state, {
+        loadingImages: true
+      })
+    }
     case SET_SLICK_INDEX: {
       return update(state, {
         slickIndex: action.index
@@ -73,8 +80,11 @@ export default function reducer(
       })
     }
     case PHOTOS_LOADED: {
+      let length = 165 * action.imgAmount / 3 - 500
       return update(state, {
-        photos: [...action.photos.edges]
+        photos: [...action.photos.edges],
+        historyLength: length,
+        loadingImages: false,
       })
     }
     case RESET_PREDICTION: {

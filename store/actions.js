@@ -17,6 +17,7 @@ export const ERROR_CAUGHT = "ERROR_CAUGHT";
 export const RESET_ERROR = "RESET_ERROR";
 export const SLICK_CONFIG = "SLICK_CONFIG";
 export const SET_SLICK_INDEX = "SET_SLICK_INDEX";
+export const LOADING_IMAGES = "LOADING_IMAGES";
 
 const URL = "http://167.172.187.181:5000"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
@@ -59,22 +60,22 @@ export function askCameraRollPermission() {
             if (res.status !== "granted") {
                 alert("This app needs permission to use gallery");
             } else {
-                dispatch(loadImages())
+                dispatch(loadImages(102))
                 dispatch({ type: CAMERA_ROLL_PERMISSION_GRANTED });
             }
         });
     };
 }
 
-export function loadImages() {
+export function loadImages(amount) {
     return (dispatch, getState) => {
         let photoConfig = {
-            first: 102,
+            first: amount,
             //groupName: "DCIM",
             assetType: 'Photos',
         }
         CameraRoll.getPhotos(photoConfig).then(imgs => {
-            dispatch({ type: PHOTOS_LOADED, photos: imgs })
+            dispatch({ type: PHOTOS_LOADED, photos: imgs, imgAmount: amount })
         })
     }
 }
@@ -89,7 +90,7 @@ export function saveToCameraRoll(uri, type) {
         })
         if (!found) {
             CameraRoll.saveToCameraRoll(uri, type).then(() => {
-                dispatch(loadImages())
+                dispatch(loadImages(102))
             })
         }
     }
