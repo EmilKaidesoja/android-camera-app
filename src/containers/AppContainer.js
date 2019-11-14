@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slick from "react-native-slick";
 import { StyleSheet, Alert, BackHandler, View, Text } from "react-native";
+import * as Permissions from "expo-permissions";
 
 import {
   askCameraPermission,
   askCameraRollPermission,
-  slickSwipeHandler,
   RESET_ERROR,
   RESET_PREDICTION,
   DISCARD_PIC,
@@ -25,15 +25,28 @@ import Header from "../screens/Header";
 import Toolbar from "../screens/Toolbar";
 
 let _ = require("underscore");
-
 class AppContainer extends Component {
-  componentDidMount() {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-    this.props.askPermissions();
-    BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
-    this.props.configSlick(this.slick);
+  state = {
+    hasCameraPermission: null,
+    hasCameraRollPermission: null,
   }
+  async componentDidMount() {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    this.props.configSlick(this.slick);
+    //this.props.askPermissions();
+    BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
+    this.askCameraPermission()
+    this.askCameraRollPermission()
 
+  }
+  async askCameraPermission() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' });
+  }
+  async askCameraRollPermission() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    this.setState({ hasCameraRollPermission: status === 'granted' });
+  }
   backPressed = () => {
     if (this.props.openImage) {
       this.props.discard();
@@ -68,28 +81,39 @@ class AppContainer extends Component {
         { cancelable: false }
       );
     }
+    if (_.isNull(this.state.hasCameraPermission) || _.isNull(this.state.hasCameraPermission)) {
+      return <View />
+    }
     return (
       <AuxWrapper>
-        <Slick
-          {...slickSettings}
-          ref={ref => {
-            this.slick = ref;
-          }}
-        >
-          <AuxWrapper style={inlineStyles.cameraView}>
-            <Header text={"About"} />
-            <InfoContainer />
-          </AuxWrapper>
-          <AuxWrapper style={inlineStyles.cameraView}>
-            <Header text={"Camera"} />
-            <CameraContainer />
-          </AuxWrapper>
-          <AuxWrapper style={inlineStyles.savedImagesView}>
-            <Header text={"Images"} />
-            <History />
-          </AuxWrapper>
-        </Slick>
-        {this.props.openImage ? <Picture /> : <Toolbar cameraActive={true} />}
+        {!this.state.hasCameraPermission || !this.state.hasCameraPermission ?
+          (<View style={inlineStyles.cameraView}>
+            <Text>We need your permission to use the camera and camera roll!</Text>
+          </View>)
+          :
+          (<AuxWrapper>
+            <Slick
+              {...slickSettings}
+              ref={ref => {
+                this.slick = ref;
+              }}
+            >
+              <AuxWrapper style={inlineStyles.cameraView}>
+                <Header text={"About"} />
+                <InfoContainer />
+              </AuxWrapper>
+              <AuxWrapper style={inlineStyles.cameraView}>
+                <Header text={"Camera"} />
+                <CameraContainer />
+              </AuxWrapper>
+              <AuxWrapper style={inlineStyles.savedImagesView}>
+                <Header text={"Images"} />
+                <History />
+              </AuxWrapper>
+            </Slick>
+            {this.props.openImage ? <Picture /> : <Toolbar slick={this.slick} cameraActive={true} />}
+          </AuxWrapper>)
+        }
         <PredictionModal />
       </AuxWrapper>
     );
