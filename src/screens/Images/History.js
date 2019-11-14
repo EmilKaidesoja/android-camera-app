@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, CameraRoll, Button, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
+import { Text, View, CameraRoll, Button, ScrollView, TouchableOpacity, ActivityIndicator, FlatList, SafeAreaView } from "react-native";
 import styles from "../../css/styles"
 import { connect } from "react-redux";
 import Img from "./Img";
@@ -26,38 +26,36 @@ class History extends Component {
       return true
     }
   }
+  renderPhoto = (photo) => {
+    return (
+      <TouchableOpacity
+        key={_.uniqueId()}
+        onPress={() => this.openImage(photo.item.node.image)} >
+        <Img
+          imgUri={photo.item.node.image.uri}
+        />
+      </TouchableOpacity>
+    );
+  }
 
   render() {
-    let images = null
-    if (this.props.photos.length > 0) {
-      images = _.map(this.props.photos, photo => {
-        return (
-          <TouchableOpacity
-            key={_.uniqueId()}
-            onPress={() => this.openImage(photo.node.image)} >
-            <Img
-              imgUri={photo.node.image.uri}
-            />
-          </TouchableOpacity>
-        )
-      })
-    }
     return (
       <View className={styles.container} style={{ paddingBottom: 69 }}>
-        <ScrollView onScroll={({ nativeEvent }) => {
-          if (this.closeToBottom(nativeEvent)) {
-            //this.props.loadMoreImages(this.props.photos.length + 51)
+        <SafeAreaView>
+          {this.props.photos.length > 0 ?
+            <FlatList
+              data={this.props.photos}
+              renderItem={(photo) => this.renderPhoto(photo)}
+              keyExtractor={photo => photo.node.timestamp}
+              numColumns={3}
+              initialNumToRender={12}
+              onEndReached={() => this.props.loadMoreImages(this.props.photos.length + 51)}
+              onEndReachedThreshold={0.5}
+              onRefresh={() => this.props.loadInitialImages(102)}
+              refreshing={this.props.loadingImages}
+            /> : null
           }
-        }}>
-          <View className={styles.historyContainer}>
-            {images}
-          </View>
-        </ScrollView>
-        {this.props.loadingImages ?
-          <ActivityIndicator
-            size="large"
-            color="#191d31"
-            className={styles.loader} /> : null}
+        </SafeAreaView>
       </View>
     );
   }
@@ -78,6 +76,9 @@ const mapDispatchToProps = dispatch => {
     },
     loadMoreImages(amount) {
       dispatch({ type: LOADING_IMAGES })
+      dispatch(loadImages(amount))
+    },
+    loadInitialImages(amount) {
       dispatch(loadImages(amount))
     }
   }

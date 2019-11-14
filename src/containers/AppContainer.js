@@ -45,7 +45,7 @@ class AppContainer extends Component {
   };
 
   resetError = () => {
-    this.props.reset();
+    this.props.resetError();
   };
 
   handleSwipe = (e, state) => {
@@ -121,7 +121,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(askCameraPermission());
       dispatch(askCameraRollPermission());
     },
-    reset() {
+    resetError() {
       dispatch({ type: RESET_ERROR });
     },
     discard() {

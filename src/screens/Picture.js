@@ -19,7 +19,6 @@ import Header from "./Header";
 
 class Picture extends Component {
   analyzePhoto = () => {
-    console.log("image sent to the backend");
     this.props.saveToCameraRoll(this.props.picture.uri, "photo");
     this.props.sendPic(this.props.picture.uri);
   };
