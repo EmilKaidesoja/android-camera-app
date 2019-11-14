@@ -16,6 +16,7 @@
   height: 100%;
   width: 100%;
   position: relative;
+  background-color: #131314;
 }
 .takenImage {
   height: 77%;
@@ -46,13 +47,13 @@
 
 .toolbar {
   height: 10%;
-  background-color:#131314;
+  background-color: #131314;
   flex-direction: row;
   padding: 10px;
 }
 
 .icon {
-  color: #806E77;
+  color: #806e77;
 }
 .iconActive {
   color: #fff;
