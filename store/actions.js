@@ -19,7 +19,8 @@ export const SLICK_CONFIG = "SLICK_CONFIG";
 export const SET_SLICK_INDEX = "SET_SLICK_INDEX";
 export const LOADING_IMAGES = "LOADING_IMAGES";
 
-const URL = "http://167.172.187.181:5000"
+//const URL = "http://167.172.187.181:5000"
+const URL = "https://237b414b.ngrok.io"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }
 
 export function sendPicture(localUri) {
