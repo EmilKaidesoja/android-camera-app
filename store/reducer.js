@@ -18,8 +18,8 @@ import {
 
 export default function reducer(
   state = {
-    hasCameraPermission: false,
-    hasCameraRollPermission: false,
+    hasCameraPermission: null,
+    hasCameraRollPermission: null,
     picture: {},
     pictureSent: false,
     toggleLoader: false,

@@ -5,8 +5,9 @@ import { StyleSheet, Alert, BackHandler, View, Text } from "react-native";
 import * as Permissions from "expo-permissions";
 
 import {
-  askCameraPermission,
-  askCameraRollPermission,
+  CAMERA_PERMISSION_GRANTED,
+  CAMERA_ROLL_PERMISSION_GRANTED,
+  loadImages,
   RESET_ERROR,
   RESET_PREDICTION,
   DISCARD_PIC,
@@ -26,26 +27,28 @@ import Toolbar from "../screens/Toolbar";
 
 let _ = require("underscore");
 class AppContainer extends Component {
-  state = {
-    hasCameraPermission: null,
-    hasCameraRollPermission: null,
-  }
   async componentDidMount() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     this.props.configSlick(this.slick);
     //this.props.askPermissions();
     BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
-    this.askCameraPermission()
-    this.askCameraRollPermission()
+    this.askCameraPermission().then(() => {
+      this.props.cameraPermissionGranted()
+    })
+    this.askCameraRollPermission().then(() => {
+      this.props.cameraRollPermissionGranted()
+    })
 
   }
   async askCameraPermission() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
+    return status == 'granted'
   }
   async askCameraRollPermission() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     this.setState({ hasCameraRollPermission: status === 'granted' });
+    return status == 'granted'
   }
   backPressed = () => {
     if (this.props.openImage) {
@@ -81,12 +84,12 @@ class AppContainer extends Component {
         { cancelable: false }
       );
     }
-    if (_.isNull(this.state.hasCameraPermission) || _.isNull(this.state.hasCameraPermission)) {
+    if (_.isNull(this.props.hasCameraPermission) || _.isNull(this.props.hasCameraPermission)) {
       return <View />
     }
     return (
       <AuxWrapper>
-        {!this.state.hasCameraPermission || !this.state.hasCameraPermission ?
+        {!this.props.hasCameraPermission || !this.props.hasCameraPermission ?
           (<View style={inlineStyles.cameraView}>
             <Text>We need your permission to use the camera and camera roll!</Text>
           </View>)
@@ -141,9 +144,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    askPermissions() {
-      dispatch(askCameraPermission());
-      dispatch(askCameraRollPermission());
+    cameraPermissionGranted() {
+      dispatch({ type: CAMERA_PERMISSION_GRANTED });
+    },
+    cameraRollPermissionGranted() {
+      dispatch({ type: CAMERA_ROLL_PERMISSION_GRANTED });
+      dispatch(loadImages(102))
     },
     resetError() {
       dispatch({ type: RESET_ERROR });

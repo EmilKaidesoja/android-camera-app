@@ -44,30 +44,6 @@ export function sendPicture(localUri) {
     }
 }
 
-export function askCameraPermission() {
-    return (dispatch, getState) => {
-        Permissions.askAsync(Permissions.CAMERA).then(res => {
-            if (res.status !== "granted") {
-                alert("This app needs permission to use camera");
-            } else {
-                dispatch({ type: CAMERA_PERMISSION_GRANTED });
-            }
-        });
-    };
-}
-export function askCameraRollPermission() {
-    return (dispatch, getState) => {
-        Permissions.askAsync(Permissions.CAMERA_ROLL).then(res => {
-            if (res.status !== "granted") {
-                alert("This app needs permission to use gallery");
-            } else {
-                dispatch(loadImages(102))
-                dispatch({ type: CAMERA_ROLL_PERMISSION_GRANTED });
-            }
-        });
-    };
-}
-
 export function loadImages(amount) {
     return (dispatch, getState) => {
         let photoConfig = {
