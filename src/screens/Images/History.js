@@ -29,6 +29,7 @@ class History extends Component {
   renderPhoto = (photo) => {
     return (
       <TouchableOpacity
+        className={styles.imgContainer}
         key={_.uniqueId()}
         onPress={() => this.openImage(photo.item.node.image)} >
         <Img
