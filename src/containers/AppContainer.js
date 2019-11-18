@@ -29,7 +29,7 @@ let _ = require("underscore");
 class AppContainer extends Component {
   async componentDidMount() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-    this.props.configSlick(this.slick);
+
     //this.props.askPermissions();
     BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
     this.askCameraPermission().then(() => {
@@ -37,6 +37,7 @@ class AppContainer extends Component {
     })
     this.askCameraRollPermission().then(() => {
       this.props.cameraRollPermissionGranted()
+      this.props.configSlick(this.slick)
     })
 
   }
