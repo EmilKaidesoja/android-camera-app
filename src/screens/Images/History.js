@@ -45,9 +45,10 @@ class History extends Component {
         <SafeAreaView>
           {this.props.photos.length > 0 ?
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={this.props.photos}
               renderItem={(photo) => this.renderPhoto(photo)}
-              keyExtractor={photo => photo.node.timestamp}
+              keyExtractor={() => _.uniqueId()}
               numColumns={3}
               initialNumToRender={12}
               onEndReached={() => this.props.loadMoreImages(this.props.photos.length + 51)}
