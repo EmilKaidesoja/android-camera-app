@@ -23,6 +23,7 @@ class Cam extends Component {
         pictureTaken: false,
         flashMode: Camera.Constants.FlashMode.off,
         zoom: 0,
+        ratio: "4:3",
 
         takePictureConfig: {
             skipProcessing: true,
@@ -70,6 +71,7 @@ class Cam extends Component {
         return (
             <AuxWrapper>
                 <Camera
+                    ratio={this.state.ratio}
                     className={styles.cameraContainer}
                     flashMode={this.state.flashMode}
                     type={this.state.type}
