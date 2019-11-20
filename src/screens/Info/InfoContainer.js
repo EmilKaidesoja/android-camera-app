@@ -12,7 +12,7 @@ class Info extends Component {
     }
   }
  
-ShowHideTextComponentView = () =>{
+toggleItemsView = () =>{
  
   if(this.state.status == true)
   {
@@ -35,7 +35,7 @@ ShowHideTextComponentView = () =>{
         </View>
         <View className={styles.infoUpper}>
           <TouchableOpacity 
-          onPress={this.ShowHideTextComponentView}>
+          onPress={this.toggleItemsView}>
             <Text style={styles.toggleList}>Supported items</Text>
 
             </TouchableOpacity>
