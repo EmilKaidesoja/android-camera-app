@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "android-camera-app",
+    "version": "0.0.1",
     "slug": "android-camera-app",
     "privacy": "public",
     "sdkVersion": "35.0.0",
