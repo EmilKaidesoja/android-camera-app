@@ -22,14 +22,6 @@
         "CAMERA",
         "CAMERA_ROLL"
       ],
-      "config": {
-        "branch": {
-          "apiKey": "xxx-xxxx-xxx"
-        },
-        "fabric": {
-          "apiKey": "xxx-xxxx-xxx"
-        }
-      },
       "splash": {
         "backgroundColor": "#ffffff",
         "resizeMode": "contain"
