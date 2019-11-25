@@ -30,7 +30,6 @@ class AppContainer extends Component {
   async componentDidMount() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
 
-    //this.props.askPermissions();
     BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
     this.askCameraPermission().then(() => {
       this.props.cameraPermissionGranted()
@@ -116,8 +115,7 @@ class AppContainer extends Component {
               </AuxWrapper>
             </Slick>
             {this.props.openImage ? <Picture /> : <Toolbar slick={this.slick} cameraActive={true} />}
-          </AuxWrapper>)
-        }
+          </AuxWrapper>)}
         <PredictionModal />
       </AuxWrapper>
     );

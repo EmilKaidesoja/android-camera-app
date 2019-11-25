@@ -5,7 +5,8 @@ import {
     Text,
     TouchableOpacity,
     TouchableHighlight,
-    Slider
+    Slider,
+    Dimensions
 } from "react-native";
 import { Camera } from "expo-camera";
 import { Icon } from "react-native-elements";
@@ -36,6 +37,8 @@ class Cam extends Component {
         if (this.camera) {
             let picture = await this.camera.takePictureAsync(this.state.takePictureConfig);
             this.props.picTaken(picture)
+            let ratios = await this.camera.getSupportedRatiosAsync()
+            console.log(ratios)
         }
     };
     discardPhoto = () => {

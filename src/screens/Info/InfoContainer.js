@@ -1,67 +1,75 @@
 import React, { Component } from "react";
-import { Text, View, Button, ScrollView, TouchableHighlight, TouchableOpacity, FlatList } from "react-native";
+import { Text, View, Button, ScrollView, TouchableHighlight, TouchableOpacity, FlatList, ListView } from "react-native";
 import styles from "../../css/styles";
-import { Header } from "react-native-elements";
+
+let _ = require("underscore");
 
 class Info extends Component {
+  state = {
+    status: false
+  }
 
-  constructor(){
-    super();
-    this.state ={
-      status:false
-    }
+  toggleItemsView = () => {
+    let tempStatus = this.state.status
+    this.setState({ status: !tempStatus })
   }
- 
-toggleItemsView = () =>{
- 
-  if(this.state.status == true)
-  {
-    this.setState({status: false})
-  }
-    else
-    {
-      this.setState({status: true})
-    }
-}
- 
 
   render() {
+    const supportedObjects = [
+      { key: "Camera" },
+      { key: "Cat" },
+      { key: "Chair" },
+      { key: "Cup" },
+      { key: "Dog" },
+      { key: "Laptop" },
+      { key: "Pizza" },
+      { key: "Plant" },
+      { key: "Scissors" },
+      { key: "Watch" }]
+    const tips = [
+      { text: "Make sure there's one item in the photo" },
+      { text: "Use flash for better color contrast" },
+      { text: "Try different angles" },
+      { text: "Unfortunately it's not perfect, yet" }]
     return (
       <View className={styles.infoContainer}>
-        <View className={styles.infoHeader}>
-          <Text className={styles.infoHeaderText}>
-            Information about our application.
+        <View style={{ height: "95%" }}>
+          <ScrollView>
+            <Text className={styles.smallHeader}>Attempt at object recognition!</Text>
+            <Text className={styles.infoUpperText}>
+              Take a photo and see what our algorithm thinks of it! Our neural network has been
+              taught to recognize 10 categories of objects. See them below.
           </Text>
-        </View>
-        <View className={styles.infoUpper}>
-          <TouchableOpacity 
-          onPress={this.toggleItemsView}>
-            <Text style={styles.toggleList}>Supported items</Text>
 
+            <TouchableOpacity
+              className={styles.toggleButton}
+              onPress={() => this.toggleItemsView()}>
+              <Text className={styles.buttonText}>Items</Text>
             </TouchableOpacity>
-                <View style={styles.list}>
-                  {
-                    this.state.status ? 
-                    <FlatList data={[
-                      {key: "Camera"},
-                      {key: "Cat"},
-                      {key: "Chair"},
-                      {key: "Cup"},
-                      {key: "Dog"},
-                      {key: "Laptop"},
-                      {key: "Pizza"},
-                      {key: "Plant"},
-                      {key: "Scissors"},
-                      {key: "Whatch"},
-                    ]}
-                    renderItem={({item}) => <Text style={styles.listItems}>{item.key}</Text>}
-                    /> : null
-                  }
-                  </View>
-          <Text style={styles.smallHeader}>This application have made with a React Native and Python</Text>
-          <Text className={styles.infoUpperText}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.
-          </Text>
+
+            <View className={styles.list}>
+              {this.state.status ?
+                <FlatList data={supportedObjects}
+                  numColumns={2}
+                  renderItem={({ item }) => <Text className={styles.listItems}>{item.key}</Text>}
+                /> : null}
+            </View>
+            <Text
+              style={{
+                textAlign: "left", marginLeft: 20, marginTop: 10,
+                fontWeight: "bold", fontSize: 20, paddingBottom: 5
+              }}>
+              Tips for better results:
+        </Text>
+            <FlatList data={tips}
+              keyExtractor={() => _.uniqueId()}
+              renderItem={({ item }) => <Text
+                style={{
+                  textAlign: "left", marginLeft: 20, fontSize: 17
+                }}>- {item.text}</Text>}
+            />
+
+          </ScrollView>
         </View>
         <View className={styles.infoFooter}>
           <Text className={styles.infoFooterText}>
