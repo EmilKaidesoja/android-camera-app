@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "android-camera-app",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "slug": "android-camera-app",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -11,7 +11,7 @@
     },
 
     "android": {
-      "package": "com.main.android",
+      "package": "com.main.awesome",
       "versionCode": 1,
       "icon": "./assets/icon.png",
       "adaptiveIcon": {
