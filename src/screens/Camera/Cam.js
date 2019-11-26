@@ -37,8 +37,6 @@ class Cam extends Component {
         if (this.camera) {
             let picture = await this.camera.takePictureAsync(this.state.takePictureConfig);
             this.props.picTaken(picture)
-            let ratios = await this.camera.getSupportedRatiosAsync()
-            console.log(ratios)
         }
     };
     discardPhoto = () => {
@@ -72,39 +70,43 @@ class Cam extends Component {
     }
     render() {
         return (
-            <AuxWrapper>
+            <AuxWrapper className={styles.cameraContainer}>
                 <Camera
                     ratio={this.state.ratio}
-                    className={styles.cameraContainer}
+                    style={{
+                        flex: 1,
+                        backgroundColor: 'transparent',
+                        flexDirection: 'row',
+                    }}
                     flashMode={this.state.flashMode}
                     type={this.state.type}
                     zoom={this.state.zoom}
                     ref={ref => {
                         this.camera = ref;
-                    }}
-                />
-                <View
-                    className={styles.sliderContainer}
-                    style={{ transform: [{ rotate: '-90deg' }] }} >
-                    <View className={styles.placeholderSlider} />
-                    <Slider
-                        thumbTintColor="white"
-                        onValueChange={(amount) => this.zoom(amount)}
-                        className={styles.zoomSlider} />
-                </View>
-                <View className={styles.flashIcon} >
-                    <Icon name={this.flashHandler()}
-                        onPress={() => this.toggleFlash()}
-                        size={35}
-                        color={"#fff"}
-                        underlayColor={"transparent"}
+                    }}>
+                    <View
+                        className={styles.sliderContainer}
+                        style={{ transform: [{ rotate: '-90deg' }] }} >
+                        <View className={styles.placeholderSlider} />
+                        <Slider
+                            thumbTintColor="white"
+                            onValueChange={(amount) => this.zoom(amount)}
+                            className={styles.zoomSlider} />
+                    </View>
+                    <View className={styles.flashIcon} >
+                        <Icon name={this.flashHandler()}
+                            onPress={() => this.toggleFlash()}
+                            size={35}
+                            color={"#fff"}
+                            underlayColor={"transparent"}
+                        />
+                    </View>
+                    <TouchableOpacity
+                        disabled={this.props.openImage}
+                        onPress={() => this.takePicture()}
+                        className={styles.takePictureButton}
                     />
-                </View>
-                <TouchableOpacity
-                    disabled={this.props.openImage}
-                    onPress={() => this.takePicture()}
-                    className={styles.takePictureButton}
-                />
+                </Camera>
             </AuxWrapper>
         );
     }
