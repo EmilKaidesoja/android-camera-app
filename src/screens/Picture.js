@@ -42,7 +42,7 @@ class Picture extends Component {
                 className={[styles.takenImage, { resizeMode: "contain" }]}
                 source={{ uri: picture.uri }}
               />
-              <View className={styles.toolbar} style={{ paddingTop: 10, height: "12%"}}>
+              <View className={styles.toolbar} style={{ paddingTop: 15}}>
                 <TouchableOpacity
                   className={styles.discardButton}
                   onPress={() => this.discard()}

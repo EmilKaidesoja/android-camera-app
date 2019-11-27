@@ -18,6 +18,7 @@ class Header extends Component {
                     size={33}
                     onPress={() => this.goBack()}
                     color={"#fff"}
+                    iconStyle={{marginTop: 5}}
                 /> : null}
                 <Text
                     style={{ color: "#fff" }}
