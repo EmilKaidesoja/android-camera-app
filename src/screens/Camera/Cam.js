@@ -33,6 +33,15 @@ class Cam extends Component {
         }
     };
 
+    async componentDidMount() {
+        if (this.camera) {
+            let ratios = await this.camera.getSupportedRatiosAsync()
+            if (ratios.includes("3:2")) {
+                this.setState({ ratio: "3:2" })
+            }
+        }
+    }
+
     takePicture = async () => {
         if (this.camera) {
             let picture = await this.camera.takePictureAsync(this.state.takePictureConfig);
@@ -70,44 +79,42 @@ class Cam extends Component {
     }
     render() {
         return (
-            <AuxWrapper className={styles.cameraContainer}>
-                <Camera
-                    ratio={this.state.ratio}
-                    style={{
-                        flex: 1,
-                        backgroundColor: 'transparent',
-                        flexDirection: 'row',
-                    }}
-                    flashMode={this.state.flashMode}
-                    type={this.state.type}
-                    zoom={this.state.zoom}
-                    ref={ref => {
-                        this.camera = ref;
-                    }}>
-                    <View
-                        className={styles.sliderContainer}
-                        style={{ transform: [{ rotate: '-90deg' }] }} >
-                        <View className={styles.placeholderSlider} />
-                        <Slider
-                            thumbTintColor="white"
-                            onValueChange={(amount) => this.zoom(amount)}
-                            className={styles.zoomSlider} />
-                    </View>
-                    <View className={styles.flashIcon} >
-                        <Icon name={this.flashHandler()}
-                            onPress={() => this.toggleFlash()}
-                            size={35}
-                            color={"#fff"}
-                            underlayColor={"transparent"}
-                        />
-                    </View>
-                    <TouchableOpacity
-                        disabled={this.props.openImage}
-                        onPress={() => this.takePicture()}
-                        className={styles.takePictureButton}
+            <Camera
+                ratio={this.state.ratio}
+                style={{
+                    flex: 1,
+                    backgroundColor: 'transparent',
+                    flexDirection: 'row',
+                }}
+                flashMode={this.state.flashMode}
+                type={this.state.type}
+                zoom={this.state.zoom}
+                ref={ref => {
+                    this.camera = ref;
+                }}>
+                <View
+                    className={styles.sliderContainer}
+                    style={{ transform: [{ rotate: '-90deg' }] }} >
+                    <View className={styles.placeholderSlider} />
+                    <Slider
+                        thumbTintColor="white"
+                        onValueChange={(amount) => this.zoom(amount)}
+                        className={styles.zoomSlider} />
+                </View>
+                <View className={styles.flashIcon} >
+                    <Icon name={this.flashHandler()}
+                        onPress={() => this.toggleFlash()}
+                        size={35}
+                        color={"#fff"}
+                        underlayColor={"transparent"}
                     />
-                </Camera>
-            </AuxWrapper>
+                </View>
+                <TouchableOpacity
+                    disabled={this.props.openImage}
+                    onPress={() => this.takePicture()}
+                    className={styles.takePictureButton}
+                />
+            </Camera>
         );
     }
 }

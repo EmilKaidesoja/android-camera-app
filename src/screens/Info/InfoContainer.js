@@ -56,10 +56,10 @@ class Info extends Component {
             </View>
             <Text
               style={{
-                textAlign: "left", marginLeft: 20, marginTop: 10,
+                textAlign: "center", marginLeft: 20, marginTop: 10,
                 fontWeight: "bold", fontSize: 20, paddingBottom: 5
               }}>
-              Tips for better results:
+              Tips for better results
         </Text>
             <FlatList data={tips}
               keyExtractor={() => _.uniqueId()}

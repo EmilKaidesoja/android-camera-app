@@ -33,12 +33,12 @@ class AppContainer extends Component {
     BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
     this.askCameraPermission().then(() => {
       this.props.cameraPermissionGranted()
-    })
-    this.askCameraRollPermission().then(() => {
-      this.props.cameraRollPermissionGranted()
-      this.props.configSlick(this.slick)
-    })
 
+      this.askCameraRollPermission().then(() => {
+        this.props.cameraRollPermissionGranted()
+        this.props.configSlick(this.slick)
+      })
+    })
   }
   async askCameraPermission() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);

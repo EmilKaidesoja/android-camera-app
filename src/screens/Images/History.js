@@ -55,7 +55,14 @@ class History extends Component {
               onEndReachedThreshold={0.5}
               onRefresh={() => this.props.loadInitialImages(102)}
               refreshing={this.props.loadingImages}
-            /> : null
+            />
+            : (
+              <View>
+                <Text
+                  style={{ textAlign: "center", fontSize: 20, marginTop: 100 }}
+                >No photos
+              </Text>
+              </View>)
           }
         </SafeAreaView>
       </View>
