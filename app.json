@@ -7,9 +7,13 @@
     "sdkVersion": "35.0.0",
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": ["js", "jsx", "scss", "sass"]
+      "sourceExts": [
+        "js",
+        "jsx",
+        "scss",
+        "sass"
+      ]
     },
-
     "android": {
       "package": "com.main.awesome",
       "versionCode": 1,
@@ -19,7 +23,6 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "CAMERA",
         "CAMERA_ROLL"
       ],
       "splash": {
