@@ -30,18 +30,16 @@ class AppContainer extends Component {
   componentDidMount() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
-  //  this.askPermissions()
+    this.askPermissions()
   }
 
   async componentDidUpdate() {
     console.log(this.props)
-   // if (this.props.hasCameraPermission && _.isNull(this.props.hasCameraRollPermission)) {
-      console.log("ASK FOR CAMERA ROLL PERMISSION")
+    if (this.props.hasCameraPermission && _.isNull(this.props.hasCameraRollPermission)) {
       let res = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       let cameraRollPermission = res.permissions.cameraRoll.status
       this.props.cameraRollPermissionGranted(cameraRollPermission === 'granted')
-      console.log("ROLL PERMISSION ASKED")
-    //}
+    }
   }
 
   async askPermissions() {
