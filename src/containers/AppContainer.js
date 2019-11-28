@@ -29,20 +29,26 @@ let _ = require("underscore");
 class AppContainer extends Component {
   async componentDidMount() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-
     BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
-    this.askCameraPermission().then(() => {
-      this.props.cameraPermissionGranted()
 
-      this.askCameraRollPermission().then(() => {
+    this.askPermissions().then((status) => {
+      if (status) {
+        this.props.cameraPermissionGranted()
+        // this.askCameraRollPermission().then((status) => {
+        // if (status) {
         this.props.cameraRollPermissionGranted()
         this.props.configSlick(this.slick)
-      })
+      }
+      //})
+      //   }
     })
   }
-  async askCameraPermission() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
+  async askPermissions() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
+    this.setState({
+      hasCameraPermission: status === 'granted',
+      hasCameraRollPermission: status === 'granted'
+    });
     return status == 'granted'
   }
   async askCameraRollPermission() {
