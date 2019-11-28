@@ -61,6 +61,7 @@ class History extends Component {
                 <Text
                   style={{ textAlign: "center", fontSize: 20, marginTop: 100 }}
                 >No photos
+              Has Permission = {this.props.hasCameraRollPermission ? "true": "False"}
               </Text>
               </View>)
           }
