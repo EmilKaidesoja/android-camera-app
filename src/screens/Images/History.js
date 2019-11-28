@@ -60,9 +60,9 @@ class History extends Component {
               <View>
                 <Text
                   style={{ textAlign: "center", fontSize: 20, marginTop: 100 }}
-                >No photos
-              Has Permission = {this.props.hasCameraRollPermission ? "true": "False"}
-              </Text>
+                >We couldn't find any photos
+              Has Permission = {this.props.hasCameraRollPermission ? "true" : "False"}
+                </Text>
               </View>)
           }
         </SafeAreaView>

@@ -34,10 +34,10 @@ class AppContainer extends Component {
   }
 
   async askPermissions() {
-    let res = await Permissions.askAsync(Permissions.CAMERA);
+    let res = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
     let cameraPermission = res.permissions.camera.status
 
-    res = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    //res = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     let cameraRollPermission = res.permissions.cameraRoll.status
 
     this.props.cameraPermissionGranted(cameraPermission === 'granted')
@@ -78,13 +78,13 @@ class AppContainer extends Component {
       );
     }
     if (_.isNull(this.props.hasCameraPermission) || _.isNull(this.props.hasCameraPermission)) {
-      return <View />
+      return <View style={{ width: "100%", height: "100%" }} />
     }
     return (
       <AuxWrapper>
         {!this.props.hasCameraPermission || !this.props.hasCameraPermission ?
           (<View style={inlineStyles.cameraView}>
-            <Text>We need your permission to use the camera and camera roll!</Text>
+            <Text style={{ textAlign: "center" }}>We need your permission to use the camera and camera roll!</Text>
           </View>)
           :
           (<AuxWrapper>
