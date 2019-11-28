@@ -114,7 +114,7 @@ export default function reducer(
     }
     case CAMERA_PERMISSION_GRANTED: {
       return update(state, {
-        hasCameraPermission: true,
+        hasCameraPermission: action.status,
       })
     };
     case PICTURE_SENT: {
@@ -126,7 +126,7 @@ export default function reducer(
     };
     case CAMERA_ROLL_PERMISSION_GRANTED: {
       return update(state, {
-        hasCameraRollPermission: true,
+        hasCameraRollPermission: action.status,
       })
     }
 

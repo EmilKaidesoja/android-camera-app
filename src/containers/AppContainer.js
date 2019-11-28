@@ -27,34 +27,21 @@ import Toolbar from "../screens/Toolbar";
 
 let _ = require("underscore");
 class AppContainer extends Component {
-  async componentDidMount() {
+  componentDidMount() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     BackHandler.addEventListener("hardwareBackPress", () => this.backPressed());
+    this.askPermissions()
+  }
 
-    this.askPermissions().then((status) => {
-      if (status) {
-        this.props.cameraPermissionGranted()
-        // this.askCameraRollPermission().then((status) => {
-        // if (status) {
-        this.props.cameraRollPermissionGranted()
-        this.props.configSlick(this.slick)
-      }
-      //})
-      //   }
-    })
-  }
   async askPermissions() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL);
-    this.setState({
-      hasCameraPermission: status === 'granted',
-      hasCameraRollPermission: status === 'granted'
-    });
-    return status == 'granted'
-  }
-  async askCameraRollPermission() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    this.setState({ hasCameraRollPermission: status === 'granted' });
-    return status == 'granted'
+    let res = await Permissions.askAsync(Permissions.CAMERA);
+    let cameraPermission = res.permissions.camera.status
+
+    res = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    let cameraRollPermission = res.permissions.cameraRoll.status
+
+    this.props.cameraPermissionGranted(cameraPermission === 'granted')
+    this.props.cameraRollPermissionGranted(cameraRollPermission === 'granted')
   }
   backPressed = () => {
     if (this.props.openImage) {
@@ -149,12 +136,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    cameraPermissionGranted() {
-      dispatch({ type: CAMERA_PERMISSION_GRANTED });
+    cameraPermissionGranted(status) {
+      dispatch({ type: CAMERA_PERMISSION_GRANTED, status: status });
     },
-    cameraRollPermissionGranted() {
-      dispatch({ type: CAMERA_ROLL_PERMISSION_GRANTED });
-      dispatch(loadImages(102))
+    cameraRollPermissionGranted(status) {
+      dispatch({ type: CAMERA_ROLL_PERMISSION_GRANTED, status: status });
+      if (status) {
+        dispatch(loadImages(102))
+      }
     },
     resetError() {
       dispatch({ type: RESET_ERROR });
