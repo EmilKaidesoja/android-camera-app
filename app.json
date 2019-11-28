@@ -23,10 +23,12 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "CAMERA_ROLL"
+        "CAMERA_ROLL",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
       ],
       "splash": {
-        "backgroundColor": "#ffffff",
+        "backgroundColor": "#fefefe",
         "resizeMode": "contain"
       }
     }
