@@ -15,6 +15,7 @@ import {
   DISCARD_PIC
 } from "../../store/actions";
 import AuxWrapper from "../Utils/AuxWrapper";
+import SpinnerOverlay from "../Utils/SpinnerOverlay";
 import Header from "./Header";
 
 class Picture extends Component {
@@ -29,38 +30,29 @@ class Picture extends Component {
     let { picture, pictureSent } = this.props;
     return (
       <View className={styles.takenImageContainer}>
-        {pictureSent ? (
-          <ActivityIndicator
-            size="large"
-            color="#191d31"
-            style={{ marginTop: "60%" }}
-          />
-        ) : (
-            <AuxWrapper>
-              <Header text={"Image"} showBackButton={true} />
-              <Image
-                className={[styles.takenImage, { resizeMode: "contain" }]}
-                source={{ uri: picture.uri }}
-              />
-              <View className={styles.toolbar} style={{ paddingTop: 15}}>
-                <TouchableOpacity
-                  className={styles.discardButton}
-                  onPress={() => this.discard()}
-                >
-                  <Text className={styles.buttonText}>Cancel</Text>
-                </TouchableOpacity>
+        <Header text={"Image"} showBackButton={true} />
+        <Image
+          className={[styles.takenImage, { resizeMode: "contain" }]}
+          source={{ uri: picture.uri }}
+        />
+        <View className={styles.toolbar} style={{ paddingTop: 15 }}>
+          <TouchableOpacity
+            className={styles.discardButton}
+            onPress={() => this.discard()}
+          >
+            <Text className={styles.buttonText}>Cancel</Text>
+          </TouchableOpacity>
 
-                <TouchableOpacity
-                  className={styles.analyzeButton}
-                  onPress={() => this.analyzePhoto()}
-                >
-                  <Text className={styles.buttonText}>Send</Text>
-                </TouchableOpacity>
-              </View>
-            </AuxWrapper>
-          )}
+          <TouchableOpacity
+            className={styles.analyzeButton}
+            onPress={() => this.analyzePhoto()}
+          >
+            <Text className={styles.buttonText}>Send</Text>
+          </TouchableOpacity>
+        </View>
+        {pictureSent ? <SpinnerOverlay /> : null}
       </View>
-    );
+    )
   }
 }
 const mapStateToProps = state => {
