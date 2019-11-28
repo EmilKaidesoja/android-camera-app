@@ -28,7 +28,7 @@ export default function reducer(
     photos: [],
     openImage: false,
     error: false,
-    slick: {},
+    slick: null,
     slickIndex: 1,
     historyLength: 0,
     loadingImages: false,

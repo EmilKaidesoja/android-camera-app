@@ -34,11 +34,13 @@ class AppContainer extends Component {
   }
 
   async componentDidUpdate() {
-    console.log(this.props)
     if (this.props.hasCameraPermission && _.isNull(this.props.hasCameraRollPermission)) {
       let res = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       let cameraRollPermission = res.permissions.cameraRoll.status
       this.props.cameraRollPermissionGranted(cameraRollPermission === 'granted')
+    }
+    if (_.isNull(this.props.slick)) {
+      this.props.configSlick(this.slick)
     }
   }
 
@@ -126,7 +128,8 @@ const mapStateToProps = state => {
     openImage,
     error,
     prediction,
-    slickIndex
+    slickIndex,
+    slick
   } = state;
   return {
     hasCameraPermission,
@@ -134,7 +137,8 @@ const mapStateToProps = state => {
     openImage,
     error,
     prediction,
-    slickIndex
+    slickIndex,
+    slick
   };
 };
 
