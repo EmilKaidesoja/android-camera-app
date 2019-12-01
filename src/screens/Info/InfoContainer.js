@@ -56,8 +56,8 @@ class Info extends Component {
             </View>
             <Text
               style={{
-                textAlign: "center", marginLeft: 20, marginTop: 10,
-                fontWeight: "bold", fontSize: 20, paddingBottom: 5
+                textAlign: "center", marginTop: 15,
+                fontWeight: "bold", fontSize: 23, paddingBottom: 5
               }}>
               Tips for better results
         </Text>
@@ -65,7 +65,7 @@ class Info extends Component {
               keyExtractor={() => _.uniqueId()}
               renderItem={({ item }) => <Text
                 style={{
-                  textAlign: "left", marginLeft: 20, fontSize: 17
+                  textAlign: "center", fontSize: 17
                 }}>- {item.text}</Text>}
             />
 
