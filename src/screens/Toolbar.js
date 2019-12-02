@@ -55,7 +55,7 @@ class Toolbar extends Component {
             iconStyle={this.activeIconHandler("cam")}
             size={30}
             onPress={() => this.navigateTo(1)}
-            underlayColor={"#2a2626"}
+            underlayColor={"#151925"}
           />
         </View>
         <View style={{ flex: 3 }}>
@@ -64,7 +64,7 @@ class Toolbar extends Component {
             iconStyle={this.activeIconHandler("gallery")}
             size={30}
             onPress={() => this.navigateTo(2)}
-            underlayColor={"#2a2626"}
+            underlayColor={"#151925"}
           />
         </View>
       </View>

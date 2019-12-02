@@ -17,7 +17,6 @@ import {
     RESET_PREDICTION,
     OPEN_IMAGE
 } from "../../../store/actions";
-
 class Cam extends Component {
     state = {
         type: Camera.Constants.Type.back,
@@ -32,20 +31,6 @@ class Cam extends Component {
             exif: false,
         }
     };
-
-    async componentDidMount() {
-        if (this.camera) {
-            let ratios = await this.camera.getSupportedRatiosAsync()
-            if (ratios.includes("3:2")) {
-                //console.log(ratios)
-                //this.setState({ ratio: "3:2" })
-            }
-            if (ratios.includes("16:9")) {
-                console.log("16:9", ratios)
-                this.setState({ ratio: "16:9" })
-            }
-        }
-    }
 
     takePicture = async () => {
         if (this.camera) {
@@ -73,6 +58,33 @@ class Cam extends Component {
             }
         }
     }
+    async setCameraRatio(e) {
+        let { height, width } = e.nativeEvent.layout
+        let wantedRatio = height / width
+        let currentClosest = 0
+        let closestDif = 0
+        let index = 0
+        let ratios = await this.camera.getSupportedRatiosAsync()
+
+        for (i in ratios) {
+            let values = ratios[i].split(":")
+            let ratio = parseInt(values[0]) / parseInt(values[1])
+            if (i == 0) {
+                currentClosest = ratio
+                closestDif = wantedRatio - ratio
+                closestDif < 0 ? closestDif = closestDif * -1 : null
+            }
+
+            if (ratio - currentClosest < closestDif && ratio - currentClosest > closestDif * - 1) {
+                currentClosest = ratio
+                closestDif = wantedRatio - ratio
+                closestDif < 0 ? closestDif = closestDif * -1 : null
+                index = i
+            }
+        }
+        this.setState({ ratio: ratios[index] })
+    }
+
     toggleFlash = () => {
         let tempFlash = this.state.flashMode
         if (tempFlash == 3) tempFlash = -1
@@ -85,6 +97,7 @@ class Cam extends Component {
     render() {
         return (
             <Camera
+                onLayout={(e) => this.setCameraRatio(e)}
                 ratio={this.state.ratio}
                 style={{
                     flex: 1,
