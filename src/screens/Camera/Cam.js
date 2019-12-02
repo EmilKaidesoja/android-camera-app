@@ -37,7 +37,12 @@ class Cam extends Component {
         if (this.camera) {
             let ratios = await this.camera.getSupportedRatiosAsync()
             if (ratios.includes("3:2")) {
-                this.setState({ ratio: "3:2" })
+                //console.log(ratios)
+                //this.setState({ ratio: "3:2" })
+            }
+            if (ratios.includes("16:9")) {
+                console.log("16:9", ratios)
+                this.setState({ ratio: "16:9" })
             }
         }
     }

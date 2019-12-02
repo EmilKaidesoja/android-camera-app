@@ -16,9 +16,7 @@ class Info extends Component {
 
   render() {
     const supportedObjects = [
-      { key: "Camera" },
       { key: "Cat" },
-      { key: "Chair" },
       { key: "Cup" },
       { key: "Dog" },
       { key: "Laptop" },
