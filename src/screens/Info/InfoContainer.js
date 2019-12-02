@@ -36,7 +36,7 @@ class Info extends Component {
             <Text className={styles.smallHeader}>Attempt at object recognition!</Text>
             <Text className={styles.infoUpperText}>
               Take a photo and see what our algorithm thinks of it! Our neural network has been
-              taught to recognize 10 categories of objects. See them below.
+              taught to recognize 8 categories of objects. See them below.
           </Text>
 
             <TouchableOpacity
