@@ -2,16 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
     View,
-    Text,
     TouchableOpacity,
-    TouchableHighlight,
     Slider,
-    Dimensions
 } from "react-native";
 import { Camera } from "expo-camera";
 import { Icon } from "react-native-elements";
 import styles from "../../css/camera";
-import AuxWrapper from "../../Utils/AuxWrapper";
 
 import {
     RESET_PREDICTION,
