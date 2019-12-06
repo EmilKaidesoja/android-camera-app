@@ -1,8 +1,14 @@
 {
   "expo": {
-    "name": "android-camera-app",
+    "name": "piksly",
     "version": "1.0.0",
-    "slug": "android-camera-app",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#123366"
+    },
+    "slug": "piksly",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "packagerOpts": {
@@ -20,7 +26,7 @@
       "icon": "./assets/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#123366"
       },
       "permissions": [
         "CAMERA",
@@ -28,7 +34,7 @@
         "WRITE_EXTERNAL_STORAGE"
       ],
       "splash": {
-        "backgroundColor": "#fefefe",
+        "backgroundColor": "#123366",
         "resizeMode": "contain"
       }
     }
