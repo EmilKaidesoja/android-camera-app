@@ -18,6 +18,8 @@ class Cam extends Component {
         type: Camera.Constants.Type.back,
         pictureTaken: false,
         flashMode: Camera.Constants.FlashMode.off,
+        whiteBalance: Camera.Constants.WhiteBalance.auto,
+        autoFocus: Camera.Constants.AutoFocus.on,
         zoom: 0,
         ratio: "4:3",
 
@@ -103,6 +105,8 @@ class Cam extends Component {
                 flashMode={this.state.flashMode}
                 type={this.state.type}
                 zoom={this.state.zoom}
+                autoFocus={this.state.autoFocus}
+                whiteBalance={this.state.whiteBalance}
                 ref={ref => {
                     this.camera = ref;
                 }}>
