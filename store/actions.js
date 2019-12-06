@@ -1,5 +1,4 @@
 import { axiosCallApi } from "../middleware/axiosApi";
-import * as Permissions from "expo-permissions";
 import { CameraRoll } from "react-native"
 
 let _ = require("underscore")
@@ -18,6 +17,7 @@ export const RESET_ERROR = "RESET_ERROR";
 export const SLICK_CONFIG = "SLICK_CONFIG";
 export const SET_SLICK_INDEX = "SET_SLICK_INDEX";
 export const LOADING_IMAGES = "LOADING_IMAGES";
+export const CLOSE_MODAL = "CLOSE_MODAL";
 
 const URL = "http://167.172.187.181:5000"
 const FORM_HEADERS = { "Content-Type": 'multipart/form-data' }

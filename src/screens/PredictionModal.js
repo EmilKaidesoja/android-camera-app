@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styles from "../css/styles";
 import Modal from "react-native-modal";
 
-import { RESET_PREDICTION } from "../../store/actions";
+import { RESET_PREDICTION, CLOSE_MODAL } from "../../store/actions";
 import AuxWrapper from "../Utils/AuxWrapper";
 
 let _ = require("underscore");
@@ -12,7 +12,10 @@ let _ = require("underscore");
 class PredictionModal extends Component {
   reset = () => {
     this.props.resetPrediction();
-  };
+  }
+  closeModal = () => {
+    this.props.closeModal()
+  }
   render() {
     let { prediction, predictions, pictureSent } = this.props;
     let preds = _.map(predictions, pred => {
@@ -27,11 +30,11 @@ class PredictionModal extends Component {
       }
     });
     return (
-      <Modal isVisible={prediction}>
+      <Modal isVisible={prediction} onModalHide={() => this.reset()}>
         <View className={styles.modal}>
           <Text className={styles.text}>Predictions</Text>
           {preds}
-          <TouchableOpacity onPress={this.reset} className={styles.modalButton}>
+          <TouchableOpacity onPress={() => this.closeModal()} className={styles.modalButton}>
             <Text className={styles.modalButtonText}>Awesome!</Text>
           </TouchableOpacity>
         </View>
@@ -47,6 +50,9 @@ const mapDispatchToProps = dispatch => {
   return {
     resetPrediction() {
       dispatch({ type: RESET_PREDICTION });
+    },
+    closeModal() {
+      dispatch({ type: CLOSE_MODAL })
     }
   };
 };

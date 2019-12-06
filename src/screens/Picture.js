@@ -42,7 +42,6 @@ class Picture extends Component {
           >
             <Text className={styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             className={styles.analyzeButton}
             onPress={() => this.analyzePhoto()}

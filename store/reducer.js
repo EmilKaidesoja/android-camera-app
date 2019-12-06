@@ -13,7 +13,8 @@ import {
   RESET_ERROR,
   SLICK_CONFIG,
   SET_SLICK_INDEX,
-  LOADING_IMAGES
+  LOADING_IMAGES,
+  CLOSE_MODAL
 } from "./actions";
 
 export default function reducer(
@@ -87,9 +88,13 @@ export default function reducer(
         loadingImages: false,
       })
     }
-    case RESET_PREDICTION: {
+    case CLOSE_MODAL: {
       return update(state, {
         prediction: false,
+      })
+    }
+    case RESET_PREDICTION: {
+      return update(state, {
         openImage: false,
         predictions: {},
       })
