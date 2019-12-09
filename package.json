@@ -8,15 +8,30 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^35.0.0",
+    "axios": "^0.19.0",
+    "expo": "^35.0.1",
+    "expo-camera": "~7.0.0",
+    "expo-permissions": "~7.0.0",
     "mem": "^5.1.1",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
-    "react-native-web": "^0.11.7"
+    "react-native-camera": "^3.7.2",
+    "react-native-elements": "^1.2.7",
+    "react-native-modal": "^11.5.1",
+    "react-native-slick": "^1.0.2",
+    "react-native-web": "^0.11.7",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "underscore": "^1.9.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^7.0.0"
+    "babel-plugin-react-native-classname-to-style": "^1.2.2",
+    "babel-plugin-react-native-platform-specific-extensions": "^1.1.1",
+    "babel-preset-expo": "^7.0.0",
+    "node-sass": "^4.12.0",
+    "react-native-sass-transformer": "^1.4.0"
   },
   "private": true
 }

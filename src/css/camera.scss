@@ -1,0 +1,85 @@
+.cameraContainer {
+  height: 100%;
+  width: 100%;
+}
+.takePictureButton {
+  margin: auto;
+  height: 70px;
+  width: 70px;
+  border-radius: 35px;
+  margin-bottom: 5%;
+  border: 3px solid rgb(255, 255, 255);
+  background-color: transparent;
+}
+
+.takenImageContainer {
+  height: 100%;
+  width: 100%;
+  background-color: #151925;
+}
+.takenImage {
+  height: 77%;
+  width: 100%;
+}
+.discardButton {
+  padding: 13px;
+  border-radius: 4px;
+  background-color: rgb(179, 169, 169);
+  margin: 0% 5%;
+  flex: 2;
+  height: 45px;
+}
+.analyzeButton {
+  padding: 13px;
+  border-radius: 4px;
+  background-color: #004f97;
+  margin: 0 5%;
+  flex: 2;
+  height: 45px;
+}
+
+.buttonText {
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
+  color: #fff;
+  line-height: 20px;
+}
+
+.toolbar {
+  height: 10%;
+  background-color: #151925;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.icon {
+  color: #5c5c61;
+}
+.iconActive {
+  color: #fff;
+}
+.flashIcon {
+  position: absolute;
+  right: 20px;
+  top: 70px;
+}
+.zoomSlider {
+  width: 85%;
+  height: 10px;
+}
+
+.sliderContainer {
+  position: absolute;
+  right: -38px;
+  top: 160px;
+  width: 150px;
+}
+.placeholderSlider {
+  width: 70%;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  right: 30px;
+  border-radius: 5px;
+}
